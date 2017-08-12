@@ -1,0 +1,16 @@
+
+#myDiv{
+	margin: 0px;
+	width: 80%;
+	position: absolute;
+	font-size: 14px;
+	background-color: #F4F4F4;
+}
+
+.sugerencias:hover{
+	background-color:#D3D3D3;
+	cursor:default;
+}
+
+
+
