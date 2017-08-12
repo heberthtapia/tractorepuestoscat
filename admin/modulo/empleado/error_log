@@ -1,0 +1,2 @@
+[10-Aug-2017 17:49:46 America/Chicago] PHP Fatal error:  Call to a member function FetchRow() on boolean in /home1/monkydj/tractorepuestoscat.com/demo/admin/modulo/empleado/loadImages.php on line 26
+[11-Aug-2017 13:55:10 America/Chicago] PHP Fatal error:  Call to a member function FetchRow() on boolean in /home1/monkydj/tractorepuestoscat.com/demo/admin/modulo/empleado/loadImages.php on line 26
