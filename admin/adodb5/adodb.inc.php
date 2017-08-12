@@ -538,15 +538,15 @@ if (!defined('_ADODB_LAYER')) {
 	function Connect($argHostname = "", $argUsername = "", $argPassword = "", $argDatabaseName = "", $forceNew = false)
 	{
 		// MODIFICADO
-		/*$argHostname = "localhost";
+		$argHostname = "localhost";
 		$argUsername = "root";
 		$argPassword = "mysql";
-		$argDatabaseName = "bd_admin";*/
+		$argDatabaseName = "bd_admin";
 
-		$argHostname = "ns6219.hostgator.com";
+		/*$argHostname = "ns6219.hostgator.com";
 		$argUsername = "monkydj_tracto";
 		$argPassword = "=QMKF1SGM,Mk";
-		$argDatabaseName = "monkydj_tractorepuestoscat";
+		$argDatabaseName = "monkydj_tractorepuestoscat";*/
 
 		if ($argHostname != "") $this->host = $argHostname;
 		if ($argUsername != "") $this->user = $argUsername;
