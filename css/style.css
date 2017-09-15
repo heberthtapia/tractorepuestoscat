@@ -625,6 +625,7 @@ a:hover, a:focus {color: #FFF; text-decoration: none; /*#17a78b*/}
 .product-breadcroumb span,
 a:focus {
   color: #E07700;
+  cursor: pointer;
 }
 
 .footer-bottom-area {
@@ -791,13 +792,16 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
 }
 .product-gallery {
     margin-bottom: 25px;
-    margin-left: -25px;
+    margin-left: 0px;
     overflow: hidden;
 }
 .product-gallery img {
     height: auto;
-    margin-left: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
     width: 76px;
+    border: 1px #DDD solid;
+    padding: 5px;
 }
 .product-name {
     font-size: 25px;

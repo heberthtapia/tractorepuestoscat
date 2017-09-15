@@ -110,11 +110,8 @@
                 <div class="navbar-collapse collapse" id="enlace">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Inicio</a></li>
-                        <li><a href="repuesto.php">Repuestos</a></li>
-                        <li><a href="#">Empresa</a></li>
-                        <li><a href="#">Puntos de Venta</a></li>
-                        <!--<li><a href="#">Category</a></li>
-                        <li><a href="#">Cotizacion</a></li>-->
+                        <li><a href="#">Quienes Somos</a></li>
+                        <li><a href="#">Maquinaria y Equipos</a></li>
                         <li><a href="contactos.html">Contacto</a></li>
                     </ul>
                 </div>
@@ -187,43 +184,6 @@
 
 <img border="0" src="admin/thumb/phpThumb.php?src=../../img/backSlide.png&w=1163&h=365&fltr[]=wmi%7C../../img/h4-slide01-1.png%7C420x180%7C100%7C500%7C500%7C0&hash=409a4ffdd42231edff0421f096d750ab" alt="">
 
-<?php
- $strQuery = "SELECT r.name, f.name FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name) ORDER BY (r.dateReg) DESC limit 0,10";
- $query = $db->Execute($strQuery);
-?>
-
-    <div class="maincontent-area">
-        <div class="zigzag-bottom"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="latest-product">
-                        <h2 class="section-title">Ultimos Repuestos</h2>
-                        <div class="product-carousel">
-                        <?php
-                            while( $reg = $query->FetchRow() ){
-                        ?>
-                            <div class="single-product">
-                                <div class="product-f-image">
-                                    <img class="thumb" src="admin/thumb/phpThumb.php?src=../modulo/repuesto/uploads/files/<?=($reg[1]);?>&amp;w=195&amp;h=243&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="">
-                                    <div class="product-hover">
-                                        <!-- <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a> -->
-                                        <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> Mas detalles</a>
-                                    </div>
-                                </div>
-
-                                <h2><a href="single-product.html"><?=$reg[0]?></a></h2>
-                            </div>
-                        <?php
-                            }
-                        ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End main content area -->
-
 <div id="principal">
 	<div id="pers"></div>
     <div class="brands-area">
@@ -246,6 +206,77 @@
             </div>
         </div>
     </div> <!-- End brands area -->
+
+        <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Nuestros Repuestos</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php
+
+ $strQuery = "SELECT r.name, f.name, r.id_repuesto FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name)";
+ $sql = $db->Execute($strQuery);
+
+?>
+
+<div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div id="container" class="container">
+            <div class="row">
+            <?php
+                while( $row = $sql->FetchRow() ){
+            ?>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img src="admin/thumb/phpThumb.php?src=../modulo/repuesto/uploads/files/<?=$row[1];?>&amp;w=195&amp;h=243&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="<?=$row[1]?>">
+                        </div>
+                        <h2><?=$row[0]?></h2>
+
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" onclick="javascript:despliega('single-product.php', 'container', <?=$row[2];?> );">Mas Detalle:</a>
+                        </div>
+                    </div>
+                </div>
+            <?php
+                }
+            ?>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-pagination text-center">
+                        <nav>
+                          <ul class="pagination">
+                            <li>
+                              <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                              <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div><!--end principal-->
     <div class="footer-top-area">
@@ -340,6 +371,9 @@
 
     <!-- AutoComplete - Buscador -->
     <script type="text/javascript" src="js/typeahead.js"></script>
+
+    <!-- My script -->
+    <script type="text/javascript" src="js/script.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {

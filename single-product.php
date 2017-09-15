@@ -32,9 +32,7 @@
                 <div class="col-md-12">
                     <div class="product-content-right">
                         <div class="product-breadcroumb">
-                            <a href="index.php">Inicio</a>
-                            <a href="repuesto.php">Repuestos</a>
-                            <span><?=$foto[1];?></span>
+                            <a onclick="javascript:despliega('repuesto.php', 'container');"><<< Volver</a>
                         </div>
 
                         <div class="row">
@@ -44,7 +42,7 @@
                                         <img class="thumb" src="admin/thumb/phpThumb.php?src=../modulo/repuesto/uploads/files/<?=($foto[0]);?>&amp;w=195&amp;h=243&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="">
                                     </div>
 
-                                    <div class="product-gallery">
+                                    <div class="product-gallery" align="center">
                                         <img class="thumb" src="admin/thumb/phpThumb.php?src=../modulo/repuesto/uploads/files/<?=($foto[0]);?>&amp;w=76&amp;h=76&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="">
                                     <?php
                                         while ( $foto = $queryFoto->FetchRow() ) {
@@ -76,23 +74,15 @@
                                                 <?=$row[2];?>
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h2>Reviews</h2>
+                                                <h2>Solicitar Cotización</h2>
                                                 <div class="submit-review">
-                                                    <p><label for="name">Name</label> <input name="name" type="text"></p>
+                                                    <p>
+                                                        <label for="name">Nombre</label> 
+                                                        <input name="name" type="text" data-validation="required">
+                                                    </p>
                                                     <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                    <div class="rating-chooser">
-                                                        <p>Your rating</p>
-
-                                                        <div class="rating-wrap-post">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                    <p><input type="submit" value="Submit"></p>
+                                                    <p><label for="review">Comentario</label><textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                    <p><input type="submit" value="Solicitar"></p>
                                                 </div>
                                             </div>
                                         </div>
