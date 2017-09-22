@@ -31,7 +31,7 @@ body { font-family:Arial, Helvetica, sans-serif; }
 
 
 .header-area {
-    background: none repeat scroll 0 0 #FF8D1C;/*002e5b; #FFCC01*/
+    background: none repeat scroll 0 0 #efc83d;
     color: #333;
 }
 .header-area a {
@@ -143,12 +143,12 @@ z-index: 999;}
 
 
 .mainmenu-area ul.navbar-nav li a {
-    color: #FF8D1C;/*#6e6a6a;*/
+    color: #e4b920;/*#6e6a6a;*/
     font-size: 14px;
     padding: 20px;
 }
 
-.mainmenu-area ul.navbar-nav li:hover a, .mainmenu-area ul.navbar-nav li.active a {background: #FF8D1C; color:#FFF;}
+.mainmenu-area ul.navbar-nav li:hover a, .mainmenu-area ul.navbar-nav li.active a {background: #efc83d; color:#000;}
 .mainmenu-area .nav > li > a:focus {color: #FFF;}
 
 .slider-area { width:80%; position:relative; margin:0 auto; padding:5px;}
@@ -350,7 +350,7 @@ z-index: 999;}
   padding: 20px 0 20px;
 }
 
-.promo-area .zigzag-bottom, .brands-area .zigzag-bottom{background: #f4f4f4}
+.promo-area .zigzag-bottom, .brands-area .zigzag-bottom{ background: #f4f4f4}
 .single-promo {
     font-size: 25px;
     font-weight: 200;
@@ -364,7 +364,7 @@ z-index: 999;}
 .single-promo:hover {color: #fff;background: #222;}
 .promo1 { background:#5a88ca;}
 .promo2 { background:#ffd900;}
-.promo3 { background:#fa8072;}
+.promo3 { background:#4475BF;}
 .promo4 { background:#4abebd;}
 .section-title {
   font-family: "Raleway",sans-serif;
@@ -547,10 +547,38 @@ z-index: 999;}
 }
 .product-widget-area .zigzag-bottom{background: #f4f4f4;}
 .footer-top-area .zigzag-bottom{background: #f4f4f4}
-.footer-top-area {background: none repeat scroll 0 0 #333;
+.footer-top-area {/*background: url(../img/widgettt-bg.jpg) #333333 ;/*background: none repeat scroll 0 0 #333;*/
 color: #999;
 padding: 35px 0 180px;}
 
+section.address-agileits {
+	padding:100px 0;
+	background:url(../img/footer.jpg) no-repeat;
+	background-position:center;
+	background-attachment:fixed;
+	background-size:100% 100%; 
+	-webkit-background-size:100% 100%;
+	-moz-background-size:100% 100%;
+	-o-background-size:100% 100%;
+	-ms-background-size:100% 100%;
+}
+section.address-agileits h3 {
+	font-size:25px;
+	font-weight:normal;
+	color:#fff;
+	padding-bottom:15px;
+	font-family: 'Open Sans', sans-serif;
+}
+section.address-agileits p {
+	font-size:16px;
+	font-weight:normal;
+	color:#fff;
+	padding-bottom:10px;
+}
+section.address-agileits p a {
+	color:#fff;
+	text-decoration:none;
+}
 
 .footer-bottom-area {background: #002e5b;color: #fff}
 .footer-about-us span {
@@ -576,7 +604,8 @@ padding: 35px 0 180px;}
 }
 .footer-menu a {
     display: block;
-    padding: 5px 0;color: #999
+    padding: 5px 0;
+	color: #EDE9E9;
 }
 
 
@@ -625,7 +654,6 @@ a:hover, a:focus {color: #FFF; text-decoration: none; /*#17a78b*/}
 .product-breadcroumb span,
 a:focus {
   color: #E07700;
-  cursor: pointer;
 }
 
 .footer-bottom-area {
@@ -792,16 +820,13 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
 }
 .product-gallery {
     margin-bottom: 25px;
-    margin-left: 0px;
+    margin-left: -25px;
     overflow: hidden;
 }
 .product-gallery img {
     height: auto;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 15px;
     width: 76px;
-    border: 1px #DDD solid;
-    padding: 5px;
 }
 .product-name {
     font-size: 25px;
