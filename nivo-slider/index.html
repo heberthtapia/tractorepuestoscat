@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html lang="en">
+<head>
+<title>slider</title>
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="themes/default/default.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/light/light.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/dark/dark.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="themes/bar/bar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="demo/style.css" type="text/css" media="screen" />
+</head>
+<body>
+<div id="wrapper">
+<div class="slider-wrapper theme-bar">
+    <div id="slider" class="nivoSlider"> 
+        <img src="demo/images/h4-slide01.jpg" data-thumb="demo/images/h4-slide01.jpg" alt="" title="Motor Basico" /> 
+        <img src="demo/images/h4-slide02.jpg" data-thumb="demo/images/h4-slide02.jpg" alt="" title="Sistema de transmision" />
+        <img src="demo/images/h4-slide03.jpg" data-thumb="demo/images/h4-slide03.jpg" alt="" title="Tren de Fuerza" /> 
+        <img src="demo/images/h4-slide04.jpg" data-thumb="demo/images/h4-slide04.jpg" alt="" title="Sistema hidraulico" /> 
+        <img src="demo/images/h4-slide05.jpg" data-thumb="demo/images/h4-slide05.jpg" alt="" title="Implementos" /> 
+        <img src="demo/images/h4-slide06.jpg" data-thumb="demo/images/h4-slide06.jpg" alt="" title="Sistema de Combustible" />
+        <img src="demo/images/h4-slide07.jpg" data-thumb="demo/images/h4-slide07.jpg" alt="" title="Sistema de Enfriamiento"/> 
+        <img src="demo/images/h4-slide08.jpg" data-thumb="demo/images/h4-slide08.jpg" alt="" title="Sistema de Entrada de Aire y Escape" />
+        <img src="demo/images/h4-slide09.jpg" data-thumb="demo/images/h4-slide09.jpg" alt="" title="Sistema de Lubricacion"/> 
+        <img src="demo/images/h4-slide10.jpg" data-thumb="demo/images/h4-slide10.jpg" alt="" title="Sistema Electrico y de Arranque" /> 
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<script type="text/javascript" src="jquery.nivo.slider.js"></script> 
+<script type="text/javascript">
+$(window).load(function() {
+	$('#slider').nivoSlider({
+		effect: 'random',
+		slices: 15,
+		boxCols: 8,
+		boxRows: 4,
+		animSpeed: 500,
+		pauseTime: 3000,
+		startSlide: 0,
+		directionNav: true,
+		controlNav: true,
+		controlNavThumbs: false,
+		pauseOnHover: true,
+		manualAdvance: false,
+		prevText: 'Prev',
+		nextText: 'Next',
+		randomStart: false,
+		beforeChange: function(){},
+		afterChange: function(){},
+		slideshowEnd: function(){},
+		lastSlide: function(){},
+		afterLoad: function(){}
+	});
+});
+</script>
+</body>
+</html>

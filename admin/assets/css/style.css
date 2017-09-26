@@ -228,27 +228,27 @@ ul.top-menu > li > .logout {
 
 /*sidebar navigation*/
 
-#sidebar {
+#sidebarChat {
     width: 210px;
     height: 100%;
     position: fixed;
-    background: #424a5d;
+    background: #16181E/*#424a5d;*/
 }
 
-#sidebar h5 {
+#sidebarChat h5 {
 	color: #f2f2f2;
 	font-weight: 700;
 }
 
-#sidebar ul li {
+#sidebarChat ul li {
     position: relative;
 }
 
-#sidebar .sub-menu > .sub li  {
+#sidebarChat .sub-menu > .sub li  {
     padding-left: 32px;
 }
 
-#sidebar .sub-menu > .sub li:last-child {
+#sidebarChat .sub-menu > .sub li:last-child {
     padding-bottom: 10px;
 }
 
@@ -286,11 +286,11 @@ ul.sidebar-menu {
     margin-top: 75px;
 }
 
-#sidebar > ul > li > ul.sub {
+#sidebarChat > ul > li > ul.sub {
     display: none;
 }
 
-#sidebar > ul > li.active > ul.sub, #sidebar > ul > li > ul.sub > li > a {
+#sidebarChat > ul > li.active > ul.sub, #sidebarChat > ul > li > ul.sub > li > a {
     display: block;
 }
 
@@ -749,7 +749,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 
-.sidebar-closed > #sidebar > ul {
+.sidebar-closed > #sidebarChat > ul {
     display: none;
 }
 
@@ -757,7 +757,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     margin-left: 0px;
 }
 
-.sidebar-closed #sidebar {
+.sidebar-closed #sidebarChat {
     margin-left: -180px;
 }
 

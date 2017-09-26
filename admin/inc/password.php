@@ -31,11 +31,14 @@
 		$tiempo_transcurrido = ($nowTime - $oldTime);
 
 		if( $tiempo_transcurrido > $inactivo ){
-			$strQuery = 'UPDATE usuario SET status = "Inactivo", timeReg = "'.$nowTime.'" WHERE id_usuario = "'.$row['id_usuario'].'"';
+			$strQuery = 'UPDATE usuario SET status = "Activo", timeReg = "'.$nowTime.'" WHERE id_usuario = "'.$row['id_usuario'].'"';
 			$str = $db->Execute($strQuery);
 		}
 
-	}
+	}/*else{
+		$strQuery = 'UPDATE usuario SET status = "Activo", WHERE id_usuario = "'.$row['id_usuario'].'"';
+		$str = $db->Execute($strQuery);
+	}*/
 
 	$sql = 'SELECT * ';
 	$sql.= 'FROM empleado AS e, usuario AS u ';
@@ -51,6 +54,8 @@
 	$_SESSION['idEmp']	= $reg['id_empleado'];
 	$_SESSION['cargo']	= $reg['cargo'];
 	$_SESSION['tiempo'] = time();
+
+	$_SESSION["idUser"] = $reg['id_usuario'];
 
 	$data->cargo = $reg['cargo'];
 

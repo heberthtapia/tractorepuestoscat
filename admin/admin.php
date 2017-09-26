@@ -15,12 +15,14 @@ session_start();
   if( isset($_SESSION['tiempo']) && isset($_SESSION['idEmp']) ) {
     $vida_session = time() - $_SESSION['tiempo'];
         if($vida_session > $inactivo){
+            $strQuery = 'UPDATE usuario SET status = "Inactivo" WHERE id_empleado = "'.$_SESSION['idEmp'].'"';
+            $str = $db->Execute($strQuery);
             session_destroy();
             header("Location: index.php");
         }else{
           //echo "time_elapsed_B: ".$op->time_elapsed_B(time()-$_SESSION['tiempo'])."\n";
           $nowTime = $_SESSION['tiempo'] = time();
-          $strQuery = 'UPDATE usuario SET status = "Inactivo", timeReg = "'.$nowTime.'" WHERE id_empleado = "'.$_SESSION['idEmp'].'"';
+          $strQuery = 'UPDATE usuario SET status = "Activo", timeReg = "'.$nowTime.'" WHERE id_empleado = "'.$_SESSION['idEmp'].'"';
           $str = $db->Execute($strQuery);
         }
   }else{
@@ -51,6 +53,9 @@ session_start();
     <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
+    <!-- Styles del CHAT -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/myStyleChat.min.css">
 
     <script src="assets/js/chart-master/Chart.js"></script>
 
@@ -217,7 +222,7 @@ session_start();
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Logout</a></li>
+                    <li><a class="logout" href="#" onclick="outSession('<?=$_SESSION['idUser'];?>');">Cerrar Sessión</a></li>
             	</ul>
             </div>
         </header>
@@ -228,7 +233,7 @@ session_start();
       *********************************************************************************************************************************************************** -->
       <!--sidebar start-->
       <aside>
-          <div id="sidebar"  class="nav-collapse ">
+          <div id="sidebarChat"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
 
@@ -362,7 +367,7 @@ session_start();
               <div class="row">
                   <div class="col-lg-9 main-chart">
 
-                  	<div class="row mtbox">
+                  	<!-- <div class="row mtbox">
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
 					  			<span class="li_heart"></span>
@@ -399,7 +404,7 @@ session_start();
 					  			<p>Su servidor funciona perfectamente. Relájese y disfrute.</p>
                   		</div>
 
-                  	</div><!-- /row mt -->
+                  	</div><!- /row mt - -->
 
 
           <div class="row mt">
@@ -473,8 +478,8 @@ session_start();
           </div><!-- /row -->
 
 
-					<div class="row">
-						<!-- TWITTER PANEL -->
+					<!-- <div class="row">
+						<!- TWITTER PANEL -
 						<div class="col-md-4 mb">
                       		<div class="darkblue-panel pn">
                       			<div class="darkblue-header">
@@ -503,12 +508,12 @@ session_start();
 										<h5>60% Usado</h5>
 									</div>
 								</footer>
-                      		</div><! -- /darkblue panel -->
-						</div><!-- /col-md-4 -->
+                      		</div><! - /darkblue panel -
+						</div><!- /col-md-4 -
 
 
 						<div class="col-md-4 mb">
-							<!-- INSTAGRAM PANEL -->
+							<!- INSTAGRAM PANEL -
 							<div class="instagram-panel pn">
 								<i class="fa fa-instagram fa-4x"></i>
 								<p>@ESTE ERES TU<br/>
@@ -516,10 +521,10 @@ session_start();
 								</p>
 								<p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
 							</div>
-						</div><!-- /col-md-4 -->
+						</div><!- /col-md-4 -
 
 						<div class="col-md-4 col-sm-4 mb">
-							<!-- REVENUE PANEL -->
+							<!- REVENUE PANEL -
 							<div class="darkblue-panel pn">
 								<div class="darkblue-header">
 									<h5>INGRESOS</h5>
@@ -529,12 +534,12 @@ session_start();
 								</div>
 								<p class="mt"><b>$ 17,980</b><br/>Ingreso mensual</p>
 							</div>
-						</div><!-- /col-md-4 -->
+						</div><!-/col-md-4 -
 
-					</div><!-- /row -->
+					</div><!- /row - -->
 
-					<div class="row mt">
-                      <!--CUSTOM CHART START -->
+					<!-- <div class="row mt">
+                      <!-CUSTOM CHART START -
                       <div class="border-head">
                           <h3>VISITAS</h3>
                       </div>
@@ -576,8 +581,8 @@ session_start();
                               <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
                           </div>
                       </div>
-                      <!--custom chart end-->
-					</div><!-- /row -->
+                      <!-custom chart end-
+					</div><!- /row - -->
 
                   </div><!-- /col-lg-9 END SECTION MIDDLE -->
 
@@ -646,66 +651,6 @@ session_start();
                       	</div>
                       </div>
                 </div>
-                       <!-- USERS ONLINE SECTION -->
-						<h3>MIEMBROS DEL EQUIPO</h3>
-
-                <div id="equipo">
-                      <!-- First Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-divya.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DIVYA MANIAN</a><br/>
-                      		   <muted>Disponible</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Second Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DJ SHERMAN</a><br/>
-                      		   <muted>ocupado</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-danro.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DAN ROGERS</a><br/>
-                      		   <muted>Disponible</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-zac.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Zac Sniders</a><br/>
-                      		   <muted>Disponible</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Marcel Newman</a><br/>
-                      		   <muted>Disponible</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                </div>
                         <!-- CALENDAR-->
                         <div id="calendar" class="mb">
                             <div class="panel green-panel no-margin">
@@ -755,9 +700,18 @@ session_start();
 
     <!--script for this page-->
     <script src="assets/js/sparkline-chart.js"></script>
-	<script src="assets/js/zabuto_calendar.js"></script>
+  	<script src="assets/js/zabuto_calendar.js"></script>
 
-	<script type="text/javascript">
+    <!-- JS para CHAT -->
+    <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="assets/js/push.min.js"></script>
+    <script type="text/javascript" src="assets/js/miChat.min.js"></script>
+
+    <script type="text/javascript" src="assets/js/myJavaScript.js"></script>
+
+	 <script type="text/javascript">
         $(document).ready(function () {
         var unique_id = $.gritter.add({
             // (string | mandatory) the heading of the notification
@@ -776,7 +730,7 @@ session_start();
 
         return false;
         });
-	</script>
+	 </script>
 
 	<script type="application/javascript">
 
@@ -846,6 +800,59 @@ session_start();
         }
     </script>
 
+<!-- AQUI ESTA EL CODIGO DEL CHAT -->
+<?PHP
+  $sql = 'SELECT * FROM usuario AS u, empleado AS e ';
+  $sql.= 'WHERE u.id_empleado = e.id_empleado ';
+  $sql.= 'AND u.status = "Activo"' ;
+  echo $sql.= 'AND u.id_empleado != '.$_SESSION['idEmp'].'';
+  $srtQuery = $db->Execute($sql);
+?>
+<audio id="audio4"><source src="modulo/chat/tono/Peanut.ogg" type="audio/ogg"></audio>
+
+<aside id="sidebar_primary" class="tabbed_sidebar ng-scope chat_sidebar">
+  <div class="popup-head">
+    <div class="popup-head-left pull-left">
+      <h1>Conectados</h1>
+    </div>
+    <div class="popup-head-right-online pull-right">
+      <button class="chat-header-button" type="button" onclick="minimizar('connect')"><i class="fa fa-minus" aria-hidden="true"></i></button>
+    </div>
+  </div>
+<div id="connect" class="chat_box_wrapper chat_box_small chat_box_active connect mCustomScrollbar">
+  <div class="chat_box touchscroll chat_box_colors_a">
+    <div class="chat_message_wrapper">
+      <div class="chat_user_avatar">
+        <ul>
+        <?php
+          while( $row = $srtQuery->FetchRow() ){
+        ?>
+          <li>
+            <a onclick="chatClick(<?=$row['id_empleado']?>, <?=$_SESSION['idEmp']?>);" >
+              <?PHP
+                  if( $row['foto'] != '' ){
+              ?>
+                <img class="thumb md-user-image" src="thumb/phpThumb.php?src=../modulo/empleado/uploads/<?=($row['foto']);?>&amp;w=32&amp;h=32&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="">
+              <?PHP
+                }else{
+              ?>
+                <img class="thumb md-user-image" src="thumb/phpThumb.php?src=../images/sin_imagen.jpg&amp;w=32&amp;h=32&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="">
+              <?PHP
+                }
+              ?>
+              <p><?=$row['nombre'].' '.$row['apP'].' '.$row['apM']?></p>
+            </a>
+          </li>
+        <?php
+          }
+        ?>
+        </ul>
+      </div>
+    </div>
+  </div>
+</aside>
+<div id="sidebar"></div>
+<!-- AQUI TERMINA -->
 
   </body>
 </html>
