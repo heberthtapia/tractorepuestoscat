@@ -83,75 +83,7 @@ session_start();
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
-                    <!-- settings start -->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <i class="fa fa-tasks"></i>
-                            <span class="badge bg-theme">4</span>
-                        </a>
-                        <ul class="dropdown-menu extended tasks-bar">
-                            <div class="notify-arrow notify-arrow-green"></div>
-                            <li>
-                                <p class="green">You have 4 pending tasks</p>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">DashGum Admin Panel</div>
-                                        <div class="percent">40%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Database Update</div>
-                                        <div class="percent">60%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Product Development</div>
-                                        <div class="percent">80%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="index.html#">
-                                    <div class="task-info">
-                                        <div class="desc">Payments Sent</div>
-                                        <div class="percent">70%</div>
-                                    </div>
-                                    <div class="progress progress-striped">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                                            <span class="sr-only">70% Complete (Important)</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="external">
-                                <a href="#">See All Tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- settings end -->
+
                     <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
@@ -237,8 +169,8 @@ session_start();
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
 
-              	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Marcel Newman</h5>
+                  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                  <h5 class="centered">ADMINISTRADOR</h5>
 
                   <li class="mt">
                       <a class="active" href="admin.php">
@@ -246,17 +178,18 @@ session_start();
                           <span>Tablero</span>
                       </a>
                   </li>
-
                   <li class="sub-menu">
-                      <a id="categoria" href="javascript:;" >
-                          <i class="fa fa-th-list"></i>
-                          <span>Categorias</span>
+                      <a href="javascript:;" >
+                          <i class="fa fa-tasks"></i>
+                          <span>INVENTARIO</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="modulo/categoria/">Lista Categorias</a></li>
+                          <li><a  href="form_component.html">TIENDA CENTRAL</a></li>
+                      </ul>
+                      <ul class="sub">
+                          <li><a  href="form_component.html">SUCURSAL UNO</a></li>
                       </ul>
                   </li>
-
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-wrench"></i>
@@ -266,6 +199,17 @@ session_start();
                           <li><a  href="modulo/repuesto/">Lista Repuestos</a></li>
                       </ul>
                   </li>
+                  <li class="sub-menu">
+                      <a id="categoria" href="javascript:;" >
+                          <i class="fa fa-cogs"></i>
+                          <span>Categorias</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="modulo/categoria/">Lista Categorias</a></li>
+                      </ul>
+                  </li>
+
+
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -287,41 +231,30 @@ session_start();
                       </ul>
                   </li>
 
-                  <!-- <li class="sub-menu">
+                  <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>UI Elements</span>
+                          <i class="fa fa-list"></i>
+                          <span>Reportes</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="general.html">General</a></li>
-                          <li><a  href="buttons.html">Buttons</a></li>
-                          <li><a  href="panels.html">Panels</a></li>
+                          <li><a  href="#">Generar Reporte</a></li>
+                          <!--<li><a  href="buttons.html">Buttons</a></li>
+                          <li><a  href="panels.html">Panels</a></li>-->
                       </ul>
                   </li>
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>Components</span>
+                          <i class="fa fa-users"></i>
+                          <span>Contactos</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="calendar.html">Calendar</a></li>
-                          <li><a  href="gallery.html">Gallery</a></li>
-                          <li><a  href="todo_list.html">Todo List</a></li>
+                          <li><a  href="#">Clientes</a></li>
+                          <li><a  href="modulo/proveedor">Proveedores</a></li>
+                          <!-- <li><a  href="todo_list.html">Todo List</a></li>-->
                       </ul>
                   </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-book"></i>
-                          <span>Extra Pages</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="blank.html">Blank Page</a></li>
-                          <li><a  href="login.html">Login</a></li>
-                          <li><a  href="lock_screen.html">Lock Screen</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
+                  <!-- <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
                           <span>Forms</span>
@@ -594,63 +527,63 @@ session_start();
                   <div class="col-lg-3 ds">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
 						<h3>NOTIFICACIONES</h3>
-                <div id="notification">
-                      <!-- First Action -->
+                <!-- <div id="notification">
+                      <!- First Action -
                       <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>Hace 2 minutos</muted><br/>
-                      		   <a href="#">James Brown</a> se ha suscrito a su boletín de noticias.<br/>
-                      		</p>
-                      	</div>
+                        <div class="thumb">
+                          <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                          <p><muted>Hace 2 minutos</muted><br/>
+                             <a href="#">James Brown</a> se ha suscrito a su boletín de noticias.<br/>
+                          </p>
+                        </div>
                       </div>
-                      <!-- Second Action -->
+                      <!- Second Action -
                       <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>Hace 3 horas</muted><br/>
-                      		   <a href="#">Diana Kennedy</a> compró un año de suscripción.<br/>
-                      		</p>
-                      	</div>
+                        <div class="thumb">
+                          <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                          <p><muted>Hace 3 horas</muted><br/>
+                             <a href="#">Diana Kennedy</a> compró un año de suscripción.<br/>
+                          </p>
+                        </div>
                       </div>
-                      <!-- Third Action -->
+                      <!- Third Action -
                       <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>Hace 7 horas</muted><br/>
-                      		   <a href="#">Brandon Page</a> compró un año de suscripción.<br/>
-                      		</p>
-                      	</div>
+                        <div class="thumb">
+                          <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                          <p><muted>Hace 7 horas</muted><br/>
+                             <a href="#">Brandon Page</a> compró un año de suscripción.<br/>
+                          </p>
+                        </div>
                       </div>
-                      <!-- Fourth Action -->
+                      <!- Fourth Action -
                       <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>Hace 11 horas</muted><br/>
-                      		   <a href="#">Mark Twain</a> Comentó tu publicación.<br/>
-                      		</p>
-                      	</div>
+                        <div class="thumb">
+                          <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                          <p><muted>Hace 11 horas</muted><br/>
+                             <a href="#">Mark Twain</a> Comentó tu publicación.<br/>
+                          </p>
+                        </div>
                       </div>
-                      <!-- Fifth Action -->
+                      <!- Fifth Action -
                       <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>Hace 18 horas</muted><br/>
-                      		   <a href="#">Daniel Pratt</a> compró una cartera en su tienda.<br/>
-                      		</p>
-                      	</div>
+                        <div class="thumb">
+                          <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <div class="details">
+                          <p><muted>Hace 18 horas</muted><br/>
+                             <a href="#">Daniel Pratt</a> compró una cartera en su tienda.<br/>
+                          </p>
+                        </div>
                       </div>
-                </div>
+                </div> -->
                         <!-- CALENDAR-->
                         <div id="calendar" class="mb">
                             <div class="panel green-panel no-margin">
@@ -805,7 +738,7 @@ session_start();
   $sql = 'SELECT * FROM usuario AS u, empleado AS e ';
   $sql.= 'WHERE u.id_empleado = e.id_empleado ';
   $sql.= 'AND u.status = "Activo"' ;
-  echo $sql.= 'AND u.id_empleado != '.$_SESSION['idEmp'].'';
+  $sql.= 'AND u.id_empleado != '.$_SESSION['idEmp'].'';
   $srtQuery = $db->Execute($sql);
 ?>
 <audio id="audio4"><source src="modulo/chat/tono/Peanut.ogg" type="audio/ogg"></audio>
