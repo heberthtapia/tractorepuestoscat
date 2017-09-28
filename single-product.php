@@ -23,6 +23,9 @@
  $strQuery = "SELECT r.name, f.name FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name) ORDER BY (r.dateReg) DESC limit 0,10";
  $query = $db->Execute($strQuery);
 
+ $strQuery = "SELECT r.name, f.name, r.id_repuesto FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name)";
+ $sql = $db->Execute($strQuery);
+
 ?>
 <script>
     $('input:checkbox').iCheck({
@@ -30,6 +33,39 @@
         radioClass: 'iradio_square-blue',
         //increaseArea: '100%' // optional
     });
+    $('input:checkbox').on('ifChecked', function(event){
+        id = $(this).attr('value');
+        cotizar(id);
+    });
+    $('input:checkbox').on('ifUnchecked',function(event){
+        id = $(this).attr('value');
+        //cotizar(id);
+    });
+    var num = sessionStorage.getItem("num");
+    c = parseInt(num);
+    //alert(num++);
+    if(c > 0){
+        var i = 1;
+        while(i < c) {
+            alert(i);
+            var cotId = sessionStorage.getItem("cot"+i);
+            alert(cotId+'----'+<?=$id;?>);
+            if(cotId === id){
+                $('input:checkbox').iCheck('check');
+            }
+            i++;
+        }
+    }
+    function cotizar(id){
+        //alert(id);
+        num++;
+        /*Guardando los datos en el LocalStorage*/
+        sessionStorage.setItem("cot"+num, id);
+        sessionStorage.setItem("num", num);
+        $('span#cot').text(num);
+    }
+    /*var cotId = sessionStorage.getItem("num");
+    alert(cotId);*/
 </script>
             <div class="row">
                 <div class="col-md-12">
@@ -90,40 +126,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="single-sidebar">
-                                    <h2 class="sidebar-title">Repuestos</h2>
-                                    <div class="thubmnail-recent">
-                                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                                        <div class="product-sidebar-price">
-                                            <ins>$700.00</ins> <del>$100.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="thubmnail-recent">
-                                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                                        <div class="product-sidebar-price">
-                                            <ins>$700.00</ins> <del>$100.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="thubmnail-recent">
-                                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                                        <div class="product-sidebar-price">
-                                            <ins>$700.00</ins> <del>$100.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="thubmnail-recent">
-                                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                                        <div class="product-sidebar-price">
-                                            <ins>$700.00</ins> <del>$100.00</del>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="related-products-wrapper">
                                     <h2 class="related-products-title">Repuestos Relacionados</h2>
                                     <div class="related-products-carousel">
@@ -138,8 +141,7 @@
                                                     <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> detalles</a>
                                                 </div>
                                             </div>
-
-                                            <h2><a href="single-product.html"><?=$reg[0]?></a></h2>
+                                            <h2><?=$reg[0]?></h2>
                                         </div>
                                         <?php
                                             }
@@ -170,6 +172,12 @@
             },
             1000:{
                 items:3,
+            },
+            1200:{
+                items:4,
+            },
+            1200:{
+                items:5,
             }
         }
     });

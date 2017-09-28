@@ -119,7 +119,7 @@
                         <!--<li><a href="#">Empresa</a></li>
                         <li><a href="#">Puntos de Venta</a></li>-->
                         <!--<li><a href="#">Category</a></li>-->
-                        <li><a href="assets/cotiza.php">Cotizacion</a></li>
+                        <li><a href="assets/cotiza.php">Cotizacion <span id="cot" class="badge badge-secondary">5</span></a></li>
                         <li><a href="contacts.php">Contacto</a></li>
                     </ul>
                 </div>
@@ -236,42 +236,9 @@
 
 
 <?php
-
-
-
  $strQuery = "SELECT r.name, f.name, r.id_repuesto FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name)";
-
  $sql = $db->Execute($strQuery);
-
-
-
 ?>
-
-<style>
-
-.marco2 {
-
-   padding:8px;
-
-   background-color: #4071BB; /*3266B6*/
-
-   width: 200px;
-
-   border-bottom: 1px solid #999999;
-
-   border-right: 1px solid #999999;
-
-   box-shadow: 1px 2px 2px #000;
-
--webkit-box-shadow: 1px 2px 2px #000;
-
--moz-box-shadow: 1px 2px 2px #000;
-
--ms-box-shadow: 1px 2px 2px #000;
-
-}
-
-</style>
 
 <!--<div class="wrapper">
 
@@ -909,6 +876,11 @@
             afterLoad: function(){}
         });
     });
+    var num = sessionStorage.getItem("num");
+    if(num == null){
+        sessionStorage.setItem("num", 0);
+    }
+    $('span#cot').text(num);
 </script>
 
 <style>
