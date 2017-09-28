@@ -851,10 +851,11 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
     width: 50px;
 }
 .add_to_cart_button {
-    background: none repeat scroll 0 0 #5a88ca;
+    background: none repeat scroll 0 0 #EFC83D;
     border: medium none;
-    color: #fff;
-    padding: 6px 25px;display: inline-block
+    color: #0e0e0e;
+    padding: 6px 25px;display: inline-block;
+    box-shadow: 1px 1px 5px #0E0E0E;
 }
 .add_to_cart_button:hover {
   background-color: #222;
@@ -1166,7 +1167,11 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     margin-top: 15px;
 }
 
-.single-shop-product {margin-bottom: 50px}
+.single-shop-product {
+    margin-bottom: 50px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
 
 .pagination > li > a, .pagination > li > span {
   color: #000000;

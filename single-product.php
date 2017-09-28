@@ -24,11 +24,14 @@
  $query = $db->Execute($strQuery);
 
 ?>
-
-
+<script>
+    $('input:checkbox').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        //increaseArea: '100%' // optional
+    });
+</script>
             <div class="row">
-
-
                 <div class="col-md-12">
                     <div class="product-content-right">
                         <div class="product-breadcroumb">
@@ -66,23 +69,17 @@
                                     <div role="tabpanel">
                                         <ul class="product-tab" role="tablist">
                                             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Descripcion</a></li>
-                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Cotización</a></li>
                                         </ul>
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane fade in active" id="home">
                                                 <h2>Descripción Repuesto</h2>
                                                 <?=$row[2];?>
-                                            </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h2>Solicitar Cotización</h2>
-                                                <div class="submit-review">
-                                                    <p>
-                                                        <label for="name">Nombre</label> 
-                                                        <input name="name" type="text" data-validation="required">
-                                                    </p>
-                                                    <p><label for="email">Email</label> <input name="email" type="email"></p>
-                                                    <p><label for="review">Comentario</label><textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                    <p><input type="submit" value="Solicitar"></p>
+                                                <br><br>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                      <input type="checkbox" class="form-check-input" value="<?=$id;?>">
+                                                      Cotizar Producto
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>

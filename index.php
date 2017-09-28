@@ -45,6 +45,9 @@
     <link rel="stylesheet" href="css/themes/dark/dark.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/themes/bar/bar.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen" />
+
+    <link href="admin/assets/css/square/blue.css" rel="stylesheet">
+
 </head>
 <body onload="actualizaReloj()">
     <div class="header-area">
@@ -289,35 +292,17 @@
                 while( $row = $sql->FetchRow() ){
 
             ?>
-
-                <div class="col-md-4 col-sm-6">
-
-                    <div class="single-shop-product">
-
-                    <div class="marco2">
-
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product" align="center">
                         <div class="product-upper">
-
                             <img src="admin/thumb/phpThumb.php?src=../modulo/repuesto/uploads/files/<?=$row[1];?>&amp;w=195&amp;h=243&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="<?=$row[1]?>">
-
                         </div>
-
                         <h2><?=$row[0]?></h2>
-
-
-
                         <div class="product-option-shop">
-
-                            <a class="add_to_cart_button" onclick="javascript:despliega('single-product.php', 'container', <?=$row[2];?> );">Mas Detalle:</a>
-
+                            <a class="add_to_cart_button" onclick="javascript:despliega('single-product.php', 'container', <?=$row[2];?> );">Mas Detalle</a>
                         </div>
-
                     </div>
-
-                    </div>
-
                 </div>
-
             <?php
 
                 }
@@ -838,7 +823,8 @@
 
     <script type="text/javascript" src="js/script.js"></script>
 
-
+    <!--icheck-->
+    <script type="text/javascript" src="admin/assets/js/icheck.js"></script>
 
 <script type="text/javascript">
 

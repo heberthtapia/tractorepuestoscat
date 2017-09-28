@@ -31,7 +31,7 @@
 		$tiempo_transcurrido = ($nowTime - $oldTime);
 
 		if( $tiempo_transcurrido > $inactivo ){
-			$strQuery = 'UPDATE usuario SET status = "Activo", timeReg = "'.$nowTime.'" WHERE id_usuario = "'.$row['id_usuario'].'"';
+			$strQuery = 'UPDATE usuario SET status = "Inactivo", timeReg = "'.$nowTime.'" WHERE id_usuario = "'.$row['id_usuario'].'"';
 			$str = $db->Execute($strQuery);
 		}
 
