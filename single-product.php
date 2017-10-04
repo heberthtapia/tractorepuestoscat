@@ -12,19 +12,17 @@
 
     $str = "SELECT c.name, r.name, r.detail FROM repuesto AS r, categoria AS c WHERE r.id_categoria = c.id_categoria AND r.id_repuesto = ".$id."";
     $Query = $db->Execute($str);
-
     $row = $Query->FetchRow();
 
     $strFoto = "SELECT f.name, r.name FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto AND r.id_repuesto = ".$id."";
     $queryFoto = $db->Execute($strFoto);
-
     $foto = $queryFoto->FetchRow();
 
- $strQuery = "SELECT r.name, f.name FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name) ORDER BY (r.dateReg) DESC limit 0,10";
- $query = $db->Execute($strQuery);
+    $strQuery = "SELECT r.name, f.name FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name) ORDER BY (r.dateReg) DESC limit 0,10";
+    $query = $db->Execute($strQuery);
 
- $strQuery = "SELECT r.name, f.name, r.id_repuesto FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name)";
- $sql = $db->Execute($strQuery);
+    $strQuery = "SELECT r.name, f.name, r.id_repuesto FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name)";
+    $sql = $db->Execute($strQuery);
 
 ?>
 <script>
@@ -33,39 +31,75 @@
         radioClass: 'iradio_square-blue',
         //increaseArea: '100%' // optional
     });
+
     $('input:checkbox').on('ifChecked', function(event){
         id = $(this).attr('value');
         cotizar(id);
     });
     $('input:checkbox').on('ifUnchecked',function(event){
         id = $(this).attr('value');
-        //cotizar(id);
+        removeCotizar(id);
     });
+
+    var numG = sessionStorage.getItem("numG");
     var num = sessionStorage.getItem("num");
-    c = parseInt(num);
-    //alert(num++);
+
+    c = parseInt(numG);
+
     if(c > 0){
         var i = 1;
-        while(i < c) {
-            alert(i);
+        while(i <= c) {
             var cotId = sessionStorage.getItem("cot"+i);
-            alert(cotId+'----'+<?=$id;?>);
-            if(cotId === id){
+            if(cotId == <?=$id;?>){
                 $('input:checkbox').iCheck('check');
             }
             i++;
         }
     }
+    var sw = 0;
     function cotizar(id){
-        //alert(id);
-        num++;
-        /*Guardando los datos en el LocalStorage*/
-        sessionStorage.setItem("cot"+num, id);
+
+        c = parseInt(numG);
+        if(c > 0){
+            var i = 1;
+            while(i <= c) {
+                var cotId = sessionStorage.getItem("cot"+i);
+                if(cotId == <?=$id;?>){
+                    sw = 1;
+                }
+                i++;
+            }
+        }
+        if(sw == 0 || c == 0){
+            num++;
+            numG++;
+            /*Guardando los datos en el LocalStorage*/
+            sessionStorage.setItem("cot"+num, id);
+            sessionStorage.setItem("num", num);
+            sessionStorage.setItem("numG", numG);
+            $('span#cot').text(num);
+        }
+    }
+    function removeCotizar(id){
+        num--;
+        n = sessionStorage.getItem("numG");
+        for (var i = 0; i <= n; i++) {
+            var pro = sessionStorage.key(i);
+            cotId = sessionStorage.getItem(pro);
+            if(id == cotId){
+                var j = i;
+                j++;
+            }
+        }
+        sessionStorage.removeItem("cot"+j);
         sessionStorage.setItem("num", num);
         $('span#cot').text(num);
     }
-    /*var cotId = sessionStorage.getItem("num");
-    alert(cotId);*/
+    n = sessionStorage.getItem("numG");
+    for (var i = 1; i <= n; i++) {
+        cotId = sessionStorage.getItem("cot"+i);
+        //alert("-->items--->"+cotId);
+    }
 </script>
             <div class="row">
                 <div class="col-md-12">

@@ -877,8 +877,10 @@
         });
     });
     var num = sessionStorage.getItem("num");
+    var numG = sessionStorage.getItem("numG");
     if(num == null){
         sessionStorage.setItem("num", 0);
+        sessionStorage.setItem("numG", 0);
     }
     $('span#cot').text(num);
 </script>
