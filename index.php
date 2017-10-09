@@ -119,7 +119,7 @@
                         <!--<li><a href="#">Empresa</a></li>
                         <li><a href="#">Puntos de Venta</a></li>-->
                         <!--<li><a href="#">Category</a></li>-->
-                        <li><a href="assets/cotiza.php">Cotizacion <span id="cot" class="badge badge-secondary">5</span></a></li>
+                        <li><a href="cotiza.php">Cotizacion <span id="cot" class="badge badge-secondary">5</span></a></li>
                         <li><a href="contacts.php">Contacto</a></li>
                     </ul>
                 </div>
@@ -634,7 +634,7 @@
 
 <?php
 
- $strQuery = "SELECT * FROM categoria ORDER BY (name)";
+ $strQuery = "SELECT * FROM categoria ORDER BY (nameCategoria)";
 
  $query = $db->Execute($strQuery);
 
@@ -654,7 +654,7 @@
 
 							?>
 
-                                <li><a href="assets/category.php?id='.$cat.'"><?=$reg['name'];?></a></li>
+                                <li><a href="assets/category.php?id='.$cat.'"><?=$reg['nameCategoria'];?></a></li>
 
                             <?php
 

@@ -10,7 +10,7 @@
 
     $id = $_POST['id'];
 
-    $str = "SELECT c.name, r.name, r.detail FROM repuesto AS r, categoria AS c WHERE r.id_categoria = c.id_categoria AND r.id_repuesto = ".$id."";
+    $str = "SELECT c.nameCategoria, r.name, r.detail FROM repuesto AS r, categoria AS c WHERE r.id_categoria = c.id_categoria AND r.id_repuesto = ".$id."";
     $Query = $db->Execute($str);
     $row = $Query->FetchRow();
 
@@ -80,7 +80,7 @@
             $('span#cot').text(num);
         }
     }
-    function removeCotizar(id){
+    /*function removeCotizar(id){
         num--;
         n = sessionStorage.getItem("numG");
         for (var i = 0; i <= n; i++) {
@@ -94,7 +94,7 @@
         sessionStorage.removeItem("cot"+j);
         sessionStorage.setItem("num", num);
         $('span#cot').text(num);
-    }
+    }*/
     n = sessionStorage.getItem("numG");
     for (var i = 1; i <= n; i++) {
         cotId = sessionStorage.getItem("cot"+i);
