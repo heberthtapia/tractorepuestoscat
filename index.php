@@ -119,7 +119,7 @@
                         <!--<li><a href="#">Empresa</a></li>
                         <li><a href="#">Puntos de Venta</a></li>-->
                         <!--<li><a href="#">Category</a></li>-->
-                        <li><a href="cotiza.php">Cotizacion <span id="cot" class="badge badge-secondary">5</span></a></li>
+                        <li><a href="cotiza.php">Cotizacion <span id="cot" class="badge badge-secondary"></span></a></li>
                         <li><a href="contacts.php">Contacto</a></li>
                     </ul>
                 </div>
@@ -233,102 +233,11 @@
 
     </div>
 
-
-
-<?php
- $strQuery = "SELECT r.name, f.name, r.id_repuesto FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name)";
- $sql = $db->Execute($strQuery);
-?>
-
-<!--<div class="wrapper">
-
-       <div class="ribbon-wrapper-green"><div class="ribbon-green">Hola!</div></div>
-
-</div>-->
-
 <div class="single-product-area">
 
         <div class="zigzag-bottom"></div>
 
         <div id="container" class="container">
-
-            <div class="row">
-
-            <?php
-
-                while( $row = $sql->FetchRow() ){
-
-            ?>
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-shop-product" align="center">
-                        <div class="product-upper">
-                            <img src="admin/thumb/phpThumb.php?src=../modulo/repuesto/uploads/files/<?=$row[1];?>&amp;w=195&amp;h=243&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="<?=$row[1]?>">
-                        </div>
-                        <h2><?=$row[0]?></h2>
-                        <div class="product-option-shop">
-                            <a class="add_to_cart_button" onclick="javascript:despliega('single-product.php', 'container', <?=$row[2];?> );">Mas Detalle</a>
-                        </div>
-                    </div>
-                </div>
-            <?php
-
-                }
-
-            ?>
-
-            </div>
-
-
-
-            <div class="row">
-
-                <div class="col-md-12">
-
-                    <div class="product-pagination text-center">
-
-                        <nav>
-
-                          <ul class="pagination">
-
-                            <li>
-
-                              <a href="#" aria-label="Previous">
-
-                                <span aria-hidden="true">&laquo;</span>
-
-                              </a>
-
-                            </li>
-
-                            <li><a href="#">1</a></li>
-
-                            <li><a href="#">2</a></li>
-
-                            <li><a href="#">3</a></li>
-
-                            <li><a href="#">4</a></li>
-
-                            <li><a href="#">5</a></li>
-
-                            <li>
-
-                              <a href="#" aria-label="Next">
-
-                                <span aria-hidden="true">&raquo;</span>
-
-                              </a>
-
-                            </li>
-
-                          </ul>
-
-                        </nav>
-
-                    </div>
-
-                </div>
-
-            </div>
 
         </div>
 
@@ -634,7 +543,7 @@
 
 <?php
 
- $strQuery = "SELECT * FROM categoria ORDER BY (nameCategoria)";
+ $strQuery = "SELECT * FROM categoria ORDER BY (name)";
 
  $query = $db->Execute($strQuery);
 
@@ -654,7 +563,7 @@
 
 							?>
 
-                                <li><a href="assets/category.php?id='.$cat.'"><?=$reg['nameCategoria'];?></a></li>
+                                <li><a href="assets/category.php?id='.$cat.'"><?=$reg['name'];?></a></li>
 
                             <?php
 
@@ -795,59 +704,41 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function() {
+$(document).ready(function() {
 
+    load(1);
 
+    $('#buscar').typeahead({
 
-        /*$('#enlace ul li a').click(function(){
+        source: function (query, result) {
 
-            $.post($(this).attr("href"),function(datos){
+            $.ajax({
 
-                $('#principal').fadeOut(function(){
+                url: "server.php",
 
-                    $('#principal').html(datos).fadeIn();
+                data: 'query=' + query,
 
-                });
+                dataType: "json",
+
+                type: "POST",
+
+                success: function (data) {
+
+                    result($.map(data, function (item) {
+
+                        return item;
+
+                    }));
+
+                }
 
             });
 
-            return false;*
-
-        });*/
-
-
-
-        $('#buscar').typeahead({
-
-            source: function (query, result) {
-
-                $.ajax({
-
-                    url: "server.php",
-
-                    data: 'query=' + query,
-
-                    dataType: "json",
-
-                    type: "POST",
-
-                    success: function (data) {
-
-                        result($.map(data, function (item) {
-
-                            return item;
-
-                        }));
-
-                    }
-
-                });
-
-            }
-
-        });
+        }
 
     });
+
+});
 
 </script>
 <script type="text/javascript" src="js/jquery.nivo.slider.js"></script>

@@ -74,7 +74,7 @@ $op = new cnFunction();
 
       $('div#sidebar').find('a#repuesto').addClass('active');
     </script>
-<table id="tablaList" class="table table-bordered table-striped table-condensed">
+<table id="tablaList" class="table table-bordered table-striped table-condensed" width="100%">
                   <thead>
                   <tr>
                       <th>Nº</th>

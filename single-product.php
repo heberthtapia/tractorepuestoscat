@@ -1,4 +1,7 @@
 <?php
+    session_start();
+    $session_id = session_id();
+
     include 'admin/adodb5/adodb.inc.php';
     include 'admin/inc/function.php';
 
@@ -9,8 +12,9 @@
     $op = new cnFunction();
 
     $id = $_POST['id'];
+    $pag = $_POST['pag'];
 
-    $str = "SELECT c.nameCategoria, r.name, r.detail FROM repuesto AS r, categoria AS c WHERE r.id_categoria = c.id_categoria AND r.id_repuesto = ".$id."";
+    $str = "SELECT c.name as cat, r.name, r.detail FROM repuesto AS r, categoria AS c WHERE r.id_categoria = c.id_categoria AND r.id_repuesto = ".$id."";
     $Query = $db->Execute($str);
     $row = $Query->FetchRow();
 
@@ -24,8 +28,14 @@
     $strQuery = "SELECT r.name, f.name, r.id_repuesto FROM repuesto AS r, foto AS f WHERE r.id_repuesto = f.id_repuesto GROUP BY (r.name)";
     $sql = $db->Execute($strQuery);
 
+    $sqlQuery = "SELECT * FROM tmp_cotizacion WHERE id_producto = $id AND session_id = '".$session_id."' ";
+    $regSql = $db->Execute($sqlQuery);
+    $result = $regSql->RecordCount();
 ?>
 <script>
+
+
+
     $('input:checkbox').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
@@ -35,10 +45,21 @@
     $('input:checkbox').on('ifChecked', function(event){
         id = $(this).attr('value');
         cotizar(id);
+
+        var codID = new Array();
+        n = sessionStorage.getItem("numG");
+        for (var i = 1; i <= n; i++) {
+            cotId = sessionStorage.getItem("cot"+i);
+            codID[i] = cotId;
+        }
+
+        agregarID(codID, n);
     });
+
     $('input:checkbox').on('ifUnchecked',function(event){
         id = $(this).attr('value');
         removeCotizar(id);
+        deletID(id);
     });
 
     var numG = sessionStorage.getItem("numG");
@@ -46,19 +67,58 @@
 
     c = parseInt(numG);
 
-    if(c > 0){
+    /*if(c > 0){
         var i = 1;
         while(i <= c) {
             var cotId = sessionStorage.getItem("cot"+i);
-            if(cotId == <?=$id;?>){
+            alert(cotId);
+            if(cotId == ){
                 $('input:checkbox').iCheck('check');
+                //$('input:checkbox').addClass('select');
             }
             i++;
         }
+    }*/
+
+    function agregarID(id, n){
+        $.ajax({
+            type: "POST",
+            url: "./ajax/agregar_id.php",
+            //data: "id="+id+"&precio_venta="+precio_venta+"&cantidad="+cantidad,
+            data: {
+                codID: JSON.stringify(id),
+                num: n
+            },
+            beforeSend: function(objeto){
+                //$("#resultados").html("Mensaje: Cargando...");
+            },
+            success: function(datos){
+                //alert(datos);
+                //$("#resultados").html(datos);
+            }
+        });
     }
+
+    function deletID(id){
+        $.ajax({
+            type: "POST",
+            url: "./ajax/delet_id.php",
+            //data: "id="+id+"&precio_venta="+precio_venta+"&cantidad="+cantidad,
+            data: {
+                id: id
+            },
+            beforeSend: function(objeto){
+                //$("#resultados").html("Mensaje: Cargando...");
+            },
+            success: function(datos){
+                //alert(datos);
+                //$("#resultados").html(datos);
+            }
+        });
+    }
+
     var sw = 0;
     function cotizar(id){
-
         c = parseInt(numG);
         if(c > 0){
             var i = 1;
@@ -80,7 +140,7 @@
             $('span#cot').text(num);
         }
     }
-    /*function removeCotizar(id){
+    function removeCotizarID(id){
         num--;
         n = sessionStorage.getItem("numG");
         for (var i = 0; i <= n; i++) {
@@ -94,18 +154,17 @@
         sessionStorage.removeItem("cot"+j);
         sessionStorage.setItem("num", num);
         $('span#cot').text(num);
-    }*/
+    }
     n = sessionStorage.getItem("numG");
     for (var i = 1; i <= n; i++) {
         cotId = sessionStorage.getItem("cot"+i);
-        //alert("-->items--->"+cotId);
     }
 </script>
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-content-right">
                         <div class="product-breadcroumb">
-                            <a onclick="javascript:despliega('repuesto.php', 'container');"><<< Volver</a>
+                            <a onclick="javascript:load(<?=$pag;?>);"><<< Volver</a>
                         </div>
 
                         <div class="row">
@@ -133,7 +192,7 @@
                                     <h2 class="product-name"><?=$row[1];?></h2>
 
                                     <div class="product-inner-category">
-                                        <p>Categoria: <a href=""><?=$row[0];?>.</a></p>
+                                        <p>Categoria: <a href=""><?=$row['cat'];?>.</a></p>
                                     </div>
 
                                     <div role="tabpanel">
@@ -147,8 +206,19 @@
                                                 <br><br>
                                                 <div class="form-check">
                                                     <label class="form-check-label">
-                                                      <input type="checkbox" class="form-check-input" value="<?=$id;?>">
-                                                      Cotizar Producto
+                                                          <?PHP
+                                                              if( $result > 0 ){
+                                                          ?>
+                                                              <input type="checkbox" class="form-check-input" checked value="<?=$id;?>">
+                                                                Cotizar Producto
+                                                          <?PHP
+                                                              }else{
+                                                          ?>
+                                                              <input type="checkbox" class="form-check-input" value="<?=$id;?>">
+                                                                Cotizar Producto
+                                                          <?PHP
+                                                              }
+                                                          ?>
                                                     </label>
                                                 </div>
                                             </div>

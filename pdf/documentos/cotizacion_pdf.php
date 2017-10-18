@@ -4,6 +4,7 @@
 	Web: obedalvarado.pw
 	Mail: info@obedalvarado.pw
 	---------------------------*/
+
 	session_start();
 	/* Connect To Database*/
 	include("../../config/db.php");

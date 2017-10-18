@@ -229,7 +229,7 @@
                         <li><a href="#">Puntos de Venta</a></li>-->
 
                         <!--<li><a href="#">Category</a></li>-->
-                        <li><a href="assets/cotiza.php">Cotizacion <span id="cot" class="badge badge-secondary"></span></a></li>
+                        <li><a href="cotiza.php">Cotizacion <span id="cot" class="badge badge-secondary"></span></a></li>
 
                         <li><a href="contacts.php">Contacto</a></li>
 
@@ -473,7 +473,7 @@
 
 <?php
 
- $strQuery = "SELECT * FROM categoria ORDER BY (nameCategoria)";
+ $strQuery = "SELECT * FROM categoria ORDER BY (name)";
 
  $query = $db->Execute($strQuery);
 
@@ -493,7 +493,7 @@
 
                             ?>
 
-                                <li><a href=""><?=$reg['nameCategoria'];?></a></li>
+                                <li><a href=""><?=$reg['name'];?></a></li>
 
                             <?php
 

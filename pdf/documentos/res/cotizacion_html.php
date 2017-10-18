@@ -96,7 +96,7 @@ table.page_footer {width: 100%; border: none; background-color: white; padding: 
 <?php
 $sumador_total = 0;
 
-$sql = mysqli_query($con, "SELECT * FROM repuesto AS r, categoria AS c, tmp_cotizacion AS t WHERE r.id_repuesto = t.id_producto AND r.id_categoria = c.id_categoria AND t.session_id = '".$session_id."'");
+$sql = mysqli_query($con, "SELECT *,r.name AS nameRepuesto ,c.name AS cat FROM repuesto AS r, categoria AS c, tmp_cotizacion AS t WHERE r.id_repuesto = t.id_producto AND r.id_categoria = c.id_categoria AND t.session_id = '".$session_id."'");
 
 while ($row=mysqli_fetch_array($sql))
 	{
@@ -104,8 +104,8 @@ while ($row=mysqli_fetch_array($sql))
 	$id_repuesto = $row["id_repuesto"];
 	$numParte = $row['numParte'];
 	$cantidad = 1;//$row['cantidad_tmp'];
-	$nombre_producto = $row['name'];
-	$categoria = $row['nameCategoria'];
+	$nombre_producto = $row['nameRepuesto'];
+	$categoria = $row['cat'];
 
 	/*if (!empty($id_marca_producto))
 	{
@@ -143,7 +143,7 @@ while ($row=mysqli_fetch_array($sql))
     <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 11pt;padding:1mm;">
         <tr>
             <th style="width: 87%; text-align: right;">TOTAL : </th>
-            <th style="width: 13%; text-align: right;">&#36; <? echo number_format($sumador_total,2);?></th>
+            <th style="width: 13%; text-align: right;">Bs.- <? echo number_format($sumador_total,2);?></th>
         </tr>
     </table>
 	*** Precios incluyen IVA ***
@@ -181,3 +181,4 @@ $date=date("Y-m-d H:i:s");
 $insert=mysqli_query($con,"INSERT INTO cotizaciones_demo VALUES ('','$numero_cotizacion','$date','$atencion','$tel1','$empresa','$tel2','$email','$condiciones','$validez','$entrega')");
 $delete=mysqli_query($con,"DELETE FROM tmp_cotizacion WHERE session_id='".$session_id."'");
 ?>
+

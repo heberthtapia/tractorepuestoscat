@@ -360,7 +360,7 @@
 
 <?php
 
- $strQuery = "SELECT * FROM categoria ORDER BY (nameCategoria)";
+ $strQuery = "SELECT * FROM categoria ORDER BY (name)";
 
  $query = $db->Execute($strQuery);
 
@@ -380,7 +380,7 @@
 
                             ?>
 
-                                <li><a href=""><?=$reg['nameCategoria'];?></a></li>
+                                <li><a href=""><?=$reg['name'];?></a></li>
 
                             <?php
 

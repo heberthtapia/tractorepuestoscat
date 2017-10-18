@@ -1,335 +1,514 @@
 <?php
 
     include 'admin/adodb5/adodb.inc.php';
+
     include 'admin/inc/function.php';
 
+
+
     $db = NewADOConnection('mysqli');
+
     //$db->debug = true;
+
     $db->Connect();
 
+
+
     $op = new cnFunction();
+
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tractorepuestos CAT</title>
-	<link rel="shortcut icon" type="image/x-icon" href="img/icono.ico" />
-    <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" type="text/css" href="css/estilos.css">
-    <link rel="stylesheet" type="text/css" href="css/cinta.css">
-    <script src="js/cargareloj.js"></script>
-	<script src="js/ajax.js"></script>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" href="css/themes/default/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/themes/light/light.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/themes/dark/dark.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/themes/bar/bar.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen" />
 
-    <link href="admin/assets/css/square/blue.css" rel="stylesheet">
+<html lang="es">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Tractorepuestos CAT</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="img/icono.ico" />
+
+    <!-- Google Fonts -->
+
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
+
+
+
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+
+
+    <!-- Custom CSS -->
+
+    <link rel="stylesheet" href="css/owl.carousel.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+
+    <script src="js/cargareloj.js"></script>
+
+
+
+	<script src="js/ajax.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--[if lt IE 9]>
+
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+
+
 
 </head>
+
 <body onload="actualizaReloj()">
+
+
+
     <div class="header-area">
+
         <div class="container">
+
             <div class="row">
+
                 <div class="col-md-7">
+
                     <div class="user-menu">
+
                         <ul>
+
                             <li style="padding: 10px;"><i class="fa fa-clock-o"></i> <span id="Fecha_Reloj"></span></li>
+
                         </ul>
+
                     </div>
+
                 </div>
+
                 <div class="col-md-5" style="text-align: right;">
+
                     <div class="user-menu">
+
                         <ul>
+
                             <li style="padding: 10px;"><i class="fa fa-phone"></i>Tel No. (+591) 762-808-81 / 725-907-62</li>
+
                         </ul>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div> <!-- End header area -->
 
-	<div class="site-branding-area">
+
+
+    <div class="site-branding-area">
+
         <div class="container">
+
             <div class="row">
+
                 <div class="col-sm-6">
+
                     <div class="logo">
+
                         <h1><a href="index.php"><img src="img/logo.jpg" height="64"></a></h1>
+
                     </div>
+
                 </div>
+
                 <div class="col-sm-4 col-sm-offset-2">
+
                     <div class="logo">
+
                         <h1>
+
                         <form>
+
                           <div class="input-group">
+
                             <input type="text" id="buscar" name="buscar" class="form-control" placeholder="Buscar" autocomplete="off" class="typeahead">
+
                             <div class="input-group-btn">
+
                               <button class="btn btn-default" type="submit">
+
                                 <i class="glyphicon glyphicon-search"></i>
+
                               </button>
+
                             </div>
+
                           </div>
+
                           <div id="myDiv"></div><br>
+
                         </form>
+
                         </h1>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>  <!--End site branding area -->
 
+
+
     <div class="mainmenu-area">
+
         <div class="container">
+
             <div class="row">
+
                 <div class="navbar-header">
+
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+
                         <span class="sr-only">Menu</span>
+
                         <span class="icon-bar"></span>
+
                         <span class="icon-bar"></span>
+
                         <span class="icon-bar"></span>
+
                     </button>
+
                 </div>
+
                 <div class="navbar-collapse collapse" id="enlace">
+
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php">Inicio</a></li>
+
+                        <li><a href="index.php">Inicio</a></li>
+
                         <li><a href="aboutus.php">Quienes Somos</a></li>
+
                         <li><a href="assets/machine.php">Maquinaria y Equipos</a></li>
+
                         <!--<li><a href="#">Empresa</a></li>
+
                         <li><a href="#">Puntos de Venta</a></li>-->
+
                         <!--<li><a href="#">Category</a></li>-->
+
                         <li><a href="cotiza.php">Cotizacion <span id="cot" class="badge badge-secondary"></span></a></li>
-                        <li><a href="contacts.php">Contacto</a></li>
+
+                        <li class="active"><a>Contacto</a></li>
+
                     </ul>
+
                 </div>
+
             </div>
+
         </div>
+
     </div> <!-- End mainmenu area -->
 
-<div class="container">
 
-		  <div class="row-fluid">
 
-			<div class="col-md-12"><br><br>
-
-			<h2><span class="glyphicon glyphicon-edit"></span> Nueva Cotización</h2>
-
-			<hr>
-
-			<form class="form-horizontal" role="form" id="datos_cotizacion" action="javascript:openCotizacion()">
-
-				<div class="form-group row">
-
-				  <label for="atencion" class="col-md-1 control-label">Nombre:</label>
-
-				  <div class="col-md-3">
-
-					  <input type="text" class="form-control" id="atencion" placeholder="Nombre completo" required>
-
-				  </div>
-
-				  <label for="tel1" class="col-md-1 control-label">Teléfono:</label>
-
-							<div class="col-md-2">
-
-								<input type="text" class="form-control" id="tel1" placeholder="Teléfono movil" required>
-
-							</div>
-
-				</div>
-
-						<div class="form-group row">
-
-							<label for="empresa" class="col-md-1 control-label">Empresa:</label>
-
-							<div class="col-md-3">
-
-								<input type="text" class="form-control" id="empresa" placeholder="Nombre de la empresa">
-
-							</div>
-
-							<label for="tel2" class="col-md-1 control-label">Teléfono:</label>
-
-							<div class="col-md-2">
-
-								<input type="text" class="form-control" id="tel2" placeholder="Teléfono empresa">
-
-							</div>
-
-							<label for="email" class="col-md-1 control-label">Email:</label>
-
-							<div class="col-md-3">
-
-								<input type="email" class="form-control" id="email" placeholder="Email">
-
-							</div>
-
-						</div>
+<div id="principal">
 
 
 
+    <div class="product-big-title-area">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="product-bit-title text-center"><br>
+
+                        <h1>Ubicacion Tienda Central:</h1>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+          <div class="row">
+
+                  <div class="col-md-4">
+
+                    <img src="img/h4-slide2.png">
+
+                  </div>
+
+                  <div class="col-md-4"><br>
+
+                  	<h1>Nuestra direccion en Samo</h1>
+
+                  	<div class="footer-menu">
+
+                        <ul><style>li span { color:#438FC9; margin:10px; font-size:18px;}</style>
+
+                            <li><span class="glyphicon glyphicon-globe"></span><b>Carretera a Oruro</b></li>
+
+                            <li><span class="glyphicon glyphicon-home"></span><b>Localidad Samo</b></li>
+
+                            <li><span class="glyphicon glyphicon-hand-left"></span><b>Frente a engarrafadora Samo</b></li>
+
+                            <li><span class="glyphicon glyphicon-user"></span><b>Gerente Comercial: Windsor Calle Flores</b></li>
+
+                            <li><span class="glyphicon glyphicon-envelope"></span><b>win_javi@tractorepuestoscat.com</b></li>
+
+                            <li><span class="glyphicon glyphicon-earphone"></span><b>Cel.: 72590762 - 76280881</b></li>
+
+                        </ul>
+
+                     </div>   
+
+                  </div>
+
+                  <div class="col-md-4">
+
+                    <div class="container-fluid"><br>
+
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.638851516401!2d-68.2207064457032!3d-16.493814715160795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915ede16b9356b8d%3A0x87392ccecc5586a4!2sTractorepuestos+CAT!5e0!3m2!1ses!2sbo!4v1504727266574" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+                    </div>
+
+                  </div>
+
+                  
+
+           </div><br>
+
+    </div>
+
+<div class="product-big-title-area">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="product-bit-title text-center"><br>
+
+                        <h1>Ubicacion Sucursal:</h1>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+          <div class="row">
+
+                  <div class="col-md-4">
+
+                    <div class="container-fluid"><br>
+
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2274.7954842019417!2d-68.11345426837471!3d-16.488964094042352!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sbo!4v1499229779962" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-4"><br>
+
+                    <h1>Nuestra direccion en San Roque</h1>
+
+                  	<div class="footer-menu">
+
+                        <ul><style>li span { color:#438FC9; margin:10px; font-size:18px;}</style>
+
+                            <li><span class="glyphicon glyphicon-globe"></span><b>Carretera a Copacabana</b></li>
+
+                            <li><span class="glyphicon glyphicon-home"></span><b>Localidad San Roque</b></li>
+
+                            <li><span class="glyphicon glyphicon-user"></span><b>Gerente Comercial: Windsor Calle Flores</b></li>
+
+                            <li><span class="glyphicon glyphicon-envelope"></span><b>win_javi@tractorepuestoscat.com</b></li>
+
+                            <li><span class="glyphicon glyphicon-earphone"></span><b>Cel.: 72590762 - 76280881</b></li>
+
+                        </ul>
+
+                     </div> 
+
+                  </div>
+
+                  <div class="col-md-4">
+
+	                  <img src="img/h4-slide2.png">
+
+                  </div>
+
+                  
+
+           </div><br>
+
+    </div>    
+
+</div><!--end principal-->
+
+<!-- Modal -->
+
+<div id="myModal" class="modal fade" role="dialog modal-sm">
+
+  <div class="modal-dialog">
 
 
-				<div class="col-md-12">
 
-					<div class="pull-right">
+    <!-- Modal content-->
 
-						<button type="submit" class="btn btn-default">
+    <div class="modal-content">
 
-						  <span class="glyphicon glyphicon-print"></span> Imprimir
+      <div class="modal-header">
 
-						</button>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-					</div>
+        <h4 class="modal-title">Formulario de Contacto</h4>
 
-				</div>
+      </div>
 
-			</form>
+      <div class="modal-body">
 
-			<br><br>
+        <div >
 
-		<div id="resultados" class='col-md-12'></div>
+            <form role="form" id="Formulario" action="../php/contacto2.php" method="POST">
+
+                <div class="form-group">
+
+                    <label class="control-label" for="Nombre">Nombres</label>
+
+                    <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="Introduzca su nombre" required autofocus />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="control-label" for="telefono">Telefono</label>
+
+                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono celular" required autofocus />
+
+                </div>              
+
+                <div class="form-group">
+
+                    <label class="control-label" for="Motivo">Motivo de Contacto</label>
+
+                    <select name="Motivo" class="form-control">
+
+                        <option value="Consulta General">Consulta General</option>
+
+                        <option value="Realizar Pedido">Realizar Pedido</option>
+
+                        <option value="Informe un problema">Informe de un problema</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="control-label" for="Empresa">Empresa</label>
+
+                    <input type="text" class="form-control" id="Empresa" name="Empresa" placeholder="Introduzca el nombre de su empresa" required />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="control-label" for="Correo">Dirección de Correo Electrónico</label>
+
+                    <input type="email" class="form-control" id="Correo" name="Correo" placeholder="Introduzca su correo electrónico" required />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="control-label" for="Mensaje">Mensaje</label>
+
+                    <textarea rows="5" cols="30" class="form-control" id="Mensaje" name="Mensaje" placeholder="Introduzca su mensaje" required ></textarea>
+
+                </div>
+
+                <div class="form-group">                
+
+                    <input type="submit" class="btn btn-primary" value="Enviar">
+
+                    <input type="reset" class="btn btn-default" value="Limpiar">                
+
+                </div>
+
+                <div id="respuesta" style="display: none;"></div>
+
+            </form>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+      </div>
+
+    </div>
 
 
 
-			</div>
+  </div>
 
-		 </div>
-
-	</div>
-
-    <!-- Latest jQuery form server -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <!-- Bootstrap JS form CDN -->
-    <script src="js/bootstrap.js"></script>
-    <!-- jQuery sticky menu -->
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.sticky.js"></script>
-    <!-- jQuery easing -->
-    <script src="js/jquery.easing.1.3.min.js"></script>
-    <!-- Main Script -->
-    <script src="js/main.js"></script>
-    <!-- Slider -->
-    <script type="text/javascript" src="js/bxslider.min.js"></script>
-	<script type="text/javascript" src="js/script.slider.js"></script>
-    <!-- AutoComplete - Buscador -->
-    <script type="text/javascript" src="js/typeahead.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-    <script type="text/javascript" src="js/VentanaCentrada.js"></script>
-
-<script>
-
-		$(document).ready(function(){
-			var codID = new Array();
-			n = sessionStorage.getItem("numG");
-		    for (var i = 1; i <= n; i++) {
-		        cotId = sessionStorage.getItem("cot"+i);
-		        codID[i] = cotId;
-		    }
-		    agregar(codID, n);
-		});
-
-	function agregar(id, n){
-		$.ajax({
-	        type: "POST",
-	        url: "./ajax/agregar_cotizador.php",
-	        data: {
-	        	codID: JSON.stringify(id),
-	        	num: n
-	        },
-			beforeSend: function(objeto){
-				$("#resultados").html("Mensaje: Cargando...");
-			},
-	        success: function(datos){
-				$("#resultados").html(datos);
-			}
-		});
-	}
-
-
-
-		function eliminar(id){
-            removeCotizar(id);
-            var codID = new Array();
-            n = sessionStorage.getItem("numG");
-            for (var i = 1; i <= n; i++) {
-                cotId = sessionStorage.getItem("cot"+i);
-                codID[i] = cotId;
-            }
-            nn = sessionStorage.getItem("numG");
-
-			$.ajax({
-		        type: "GET",
-		        url: "./ajax/agregar_cotizador.php",
-		        data: {
-                    id: id,
-                    num: nn,
-                    codID: JSON.stringify(codID)
-                },
-				beforeSend: function(objeto){
-					$("#resultados").html("Mensaje: Cargando...");
-				},
-		        success: function(datos){
-					$("#resultados").html(datos);
-				}
-			});
-		}
-
-		function openCotizacion(){
-			var atencion = $("#atencion").val();
-			var tel1 = $("#tel1").val();
-			var empresa = $("#empresa").val();
-			var tel2 = $("#tel2").val();
-			var email = $("#email").val();
-			var condiciones = $("#condiciones").val();
-			var validez = $("#validez").val();
-			var entrega = $("#entrega").val();
-
-            sessionStorage.clear();
-            var num = sessionStorage.getItem("num");
-            var numG = sessionStorage.getItem("numG");
-            if(num == null){
-                sessionStorage.setItem("num", 0);
-                sessionStorage.setItem("numG", 0);
-            }
-            $('span#cot').text(num);
-
-			VentanaCentrada('./pdf/documentos/cotizacion_pdf.php?atencion='+atencion+'&tel1='+tel1+'&empresa='+empresa+'&tel2='+tel2+'&email='+email+'&condiciones='+condiciones+'&validez='+validez+'&entrega='+entrega,'Cotizacion','','1024','768','true');
-
-            $('#resultados').html('<div align="center" class="alert alert-success" role="alert"><strong>La cotización se genero correctamente, por favor pase por nuestras tiendas.</strong></div>');
-		}
-
-	var num = sessionStorage.getItem("num");
-    var numG = sessionStorage.getItem("numG");
-    if(num == null){
-        sessionStorage.setItem("num", 0);
-        sessionStorage.setItem("numG", 0);
-    }
-    $('span#cot').text(num);
-
-	</script>
-
+</div>
 
 	<div class="product-big-title-area"><br><br>
 
@@ -363,13 +542,11 @@
 
 </div><!--end principal-->
 
-
-
 <section class="address-agileits">
 
     <div class="footer-top-area">
 
-        <!--<div class="zigzag-bottom"></div>-->
+        <div class="zigzag-bottom"></div>
 
         <div class="container">
 
@@ -379,7 +556,7 @@
 
                     <div class="footer-about-us">
 
-                        <h2>Tractorepuestos CAT</h2>
+                        <h2>Tractorepuestos CAT</span></h2>
 
                         <p>Tambien nos puedes encontrar en nuestras redes sociales</p>
 
@@ -417,9 +594,9 @@
 
                                 while( $reg = $query->FetchRow() ){
 
-							?>
+                            ?>
 
-                                <li><a href="assets/category.php?id='.$cat.'"><?=$reg['name'];?></a></li>
+                                <li><a href=""><?=$reg['name'];?></a></li>
 
                             <?php
 
@@ -449,9 +626,7 @@
 
                             <li><a href="assets/machine.php">Maquinaria y Equipos</a></li>
 
-                            <li><a href="assets/cotiza.php">Cotizacion</a></li>
-
-                            <li><a href="contacts.php">Contactos</a></li>
+                            <li><a>Contactos</a></li>
 
                         </ul>
 
@@ -555,8 +730,7 @@
 
     <script type="text/javascript" src="js/script.js"></script>
 
-    <!--icheck-->
-    <script type="text/javascript" src="admin/assets/js/icheck.js"></script>
+
 
 <script type="text/javascript">
 
@@ -614,40 +788,6 @@
 
     });
 
-</script>
-<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
-<script type="text/javascript">
-    $(window).load(function() {
-        $('#slider').nivoSlider({
-            effect: 'random',
-            slices: 15,
-            boxCols: 8,
-            boxRows: 4,
-            animSpeed: 500,
-            pauseTime: 3000,
-            startSlide: 0,
-            directionNav: true,
-            controlNav: true,
-            controlNavThumbs: false,
-            pauseOnHover: true,
-            manualAdvance: false,
-            prevText: 'Prev',
-            nextText: 'Next',
-            randomStart: false,
-            beforeChange: function(){},
-            afterChange: function(){},
-            slideshowEnd: function(){},
-            lastSlide: function(){},
-            afterLoad: function(){}
-        });
-    });
-    var num = sessionStorage.getItem("num");
-    var numG = sessionStorage.getItem("numG");
-    if(num == null){
-        sessionStorage.setItem("num", 0);
-        sessionStorage.setItem("numG", 0);
-    }
-    $('span#cot').text(num);
 </script>
 
 <style>
@@ -741,10 +881,6 @@
         outline: 0;
 
     }
-
-
-
-
 
 </style>
 

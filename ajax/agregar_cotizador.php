@@ -7,7 +7,6 @@
 session_start();
 $session_id = session_id();
 
-//if (isset($_POST['id'])){$id=$_POST['id'];}
 if (isset($_POST['cantidad'])){$cantidad=$_POST['cantidad'];}
 if (isset($_POST['precio_venta'])){$precio_venta=$_POST['precio_venta'];}
 
@@ -24,15 +23,20 @@ if (!empty($codID))// and !empty($cantidad) and !empty($precio_venta))
 	$cont = count($codID);
 	for ($i=1; $i < $cont; $i++) {
 		if($codID[$i] != null){
-			$insert_tmp = mysqli_query($con, "INSERT INTO tmp_cotizacion (id_producto,session_id) VALUES ('$codID[$i]','$session_id')");
+			$result = mysqli_query($con, "SELECT * FROM tmp_cotizacion WHERE id_producto = $codID[$i] AND session_id = '".$session_id."' ");
+			$numero = mysqli_num_rows($result);
+			if($numero == 0){
+				$insert_tmp = mysqli_query($con, "INSERT INTO tmp_cotizacion (id_producto,sessionID,session_id) VALUES ('$codID[$i]','cot".$i."','$session_id')");
+			}
 		}
 	}
 }
 
 if (isset($_GET['id']))//codigo elimina un elemento del array
 {
+	//GET
+	if (isset($_GET['codID'])){ $codID = json_decode($_GET["codID"], true);}
 	$delete = mysqli_query($con, "DELETE FROM tmp_cotizacion WHERE id_producto = '".mysql_escape_string($_GET['id'])."' AND '".$session_id."' = '".session_id()."' ");
-	echo "===>>".$num = $_GET['num'];
 }
 
 ?>
@@ -48,31 +52,18 @@ if (isset($_GET['id']))//codigo elimina un elemento del array
 </tr>
 <?php
 	$sumador_total=0;
-	//echo $sql = "SELECT * FROM repuesto AS r, tmp_cotizacion AS t WHERE r.id_repuesto = t.id_producto AND r.id_repuesto = $id AND t.session_id = '".$session_id."'";
 
 	for ($i=1; $i <= $num; $i++) {
-		echo $i;
 		if($codID[$i] != null){
-			echo "SELECT r.name, r.numParte, c.nameCategoria, r.priceSale, r.id_repuesto FROM repuesto AS r, categoria AS C WHERE r.id_repuesto = $codID[$i] AND r.id_categoria = c.id_categoria ";
-			$sql = mysqli_query($con, "SELECT r.name, r.numParte, c.nameCategoria, r.priceSale, r.id_repuesto FROM repuesto AS r, categoria AS C WHERE r.id_repuesto = $codID[$i] AND r.id_categoria = c.id_categoria ");
+			//echo "SELECT r.name, r.numParte, c.nameCategoria, r.priceSale, r.id_repuesto FROM repuesto AS r, categoria AS C WHERE r.id_repuesto = $codID[$i] AND r.id_categoria = c.id_categoria ";
+			$sql = mysqli_query($con, "SELECT r.name, r.numParte, c.name AS cat, r.priceSale, r.id_repuesto FROM repuesto AS r, categoria AS c WHERE r.id_repuesto = $codID[$i] AND r.id_categoria = c.id_categoria ");
 
 			while ($row=mysqli_fetch_array($sql)){
-				//$id_tmp = $row["id_tmp"];
 				$name =  $row[0];
 				$codigo_producto = $row[1];
-				$cantidad = 1;//$row['cantidad_tmp'];
-				$categoria = $row[2];
+				$cantidad = 1;
+				$categoria = $row['cat'];
 				$id_tmp = $row[4];
-				//$nombre_producto = $row['name'];
-				//$id_marca_producto=$row['id_marca_producto'];
-				/*if (!empty($id_marca_producto))
-				{
-				$sql_marca=mysqli_query($con, "select nombre_marca from marcas_demo where id_marca='$id_marca_producto'");
-				$rw_marca=mysqli_fetch_array($sql_marca);
-				$nombre_marca=$rw_marca['nombre_marca'];
-				$marca_producto=" ".strtoupper($nombre_marca);
-				}
-				else {$marca_producto='';}*/
 				$precio_venta=$row[3];
 				$precio_venta_f=number_format($precio_venta,2);//Formateo variables
 				$precio_venta_r=str_replace(",","",$precio_venta_f);//Reemplazo las comas
