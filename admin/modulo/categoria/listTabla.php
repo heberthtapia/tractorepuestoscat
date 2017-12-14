@@ -59,10 +59,10 @@ $op = new cnFunction();
     });
   });
 
-  $('#obser').restrictLength( $('#max-length-element') );
-
   $('div#sidebar').find('a#categoria').addClass('active');
+  $('div#sidebar').find('li#listCat').addClass('active');
 </script>
+
 <table id="tablaList" class="table table-bordered table-striped table-condensed" width="100%">
                   <thead>
                   <tr>

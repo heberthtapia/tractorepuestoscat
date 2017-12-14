@@ -19,7 +19,7 @@
 
 	/* ACTUALIZACION DE CATEGORIA */
 
-	$strQuery = "UPDATE categoria SET name = '".$data->name."', description = '".$data->detail."', dateReg = '".$data->date."', status = 'Activo' ";
+	$strQuery = "UPDATE categoria SET name = '".$data->name."', description = '".$data->detailU."', dateReg = '".$data->date."', status = 'Activo' ";
 	$strQuery.= "WHERE id_categoria = '".$data->idCat."' ";
 
 	$sql = $db->Execute($strQuery);

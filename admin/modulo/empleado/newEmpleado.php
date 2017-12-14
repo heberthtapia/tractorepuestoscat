@@ -145,6 +145,7 @@ $hora = $op->Time();
           lang: 'es',
           modules : 'security, modules/logic'
       	});
+      	$('#obser').restrictLength( $('#max-length-element') );
 
       	$('#dataRegister').on('show.bs.modal', function() {
 			//Must wait until the render of the modal appear, thats why we use the resizeMap and NOT resizingMap!! ;-)
@@ -319,8 +320,25 @@ $hora = $op->Time();
 						</button>
 					</div>
 				</div>
+				<?php
+ 					$strQuery = "SELECT * FROM sucursal ORDER BY (nameSuc)";
+ 					$query = $db->Execute($strQuery);
+				?>
 				<div class="row">
-					<div class="col-md-8 form-group">
+					<div class="col-md-4 form-group">
+						<label for="sucursal" class="sr-only">Trabaja en:</label>
+						<select id="sucursal" name="sucursal" class="form-control" data-validation="required">
+							<option value="" disabled selected hidden>Trabaja en la Sucursal</option>
+							<?php
+                                while( $reg = $query->FetchRow() ){
+							?>
+							<option value="<?=$reg['id_sucursal']?>"><?=$reg['nameSuc']?></option>
+							<?php
+								}
+							?>
+						</select>
+					</div>
+					<div class="col-md-6 form-group">
 						<label for="addres" class="sr-only"></label>
 						<input id="addres" name="addres" type="text" placeholder="Direcci&oacute;n" class="form-control" data-validation="required"/>
 					</div>
@@ -375,16 +393,15 @@ $hora = $op->Time();
 				<div class="row">
 					<div class="col-md-12 form-group">
 						<label for="obser" class="sr-only"></label>
-						<p id="maxText"><span id="max-length-element">200</span> caracteres restantes</p>
+						<p id="maxText" class="text-info"><span id="max-length-element">200</span> caracteres restantes</p>
 						<textarea id="obser" name="obser" cols="2" placeholder="Observaciones" class="form-control"></textarea>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-
 					        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 					        <div class="row fileupload-buttonbar">
-					            <div class="col-lg-7">
+					            <div class="col-md-7">
 					                <!-- The fileinput-button span is used to style the file input field as button -->
 					                <span class="btn btn-success btn-sm fileinput-button">
 					                    <i class="fa fa-folder-open-o" aria-hidden="true"></i>

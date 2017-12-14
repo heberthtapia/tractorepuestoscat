@@ -4,16 +4,18 @@ $(document).ready(function(e) {
 
     $('#dataUpdate').on('show.bs.modal', function (event) {
 
+        $('#detailU').restrictLength( $('#max-length-elementU') );
+
         var button = $(event.relatedTarget); // Botón que activó el modal
         var name = button.data('name'); // Extraer la información de atributos de datos
         var id_categoria = button.data('idcat'); // Extraer la información de atributos de datos
-        var detail = button.data('detail');
+        var detailU = button.data('detailu');
 
         var modal = $(this);
         modal.find('.modal-title').text('Editar Categoria: '+name+'');
         modal.find('.modal-body #name').val(name);
         modal.find('.modal-body #idCat').val(id_categoria);
-        modal.find('.modal-body #detail').val(detail);
+        modal.find('.modal-body #detailU').val(detailU);
 
         'use strict';
         // Initialize the jQuery File Upload widget:
@@ -94,7 +96,8 @@ $(document).ready(function(e) {
                     <div class="form-group">
                         <label for="detail" class="control-label col-md-2">Detalle:</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" id="detail" name="detail" data-validation="required" placeholder="Detalle" rows="3"></textarea>
+                            <p id="maxText" class="text-info"><span id="max-length-elementU">200</span> caracteres restantes</p>
+                            <textarea class="form-control" id="detailU" name="detailU" data-validation="required" placeholder="Detalle" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="row">

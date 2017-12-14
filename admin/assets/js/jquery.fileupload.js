@@ -826,6 +826,7 @@
 
         _beforeSend: function (e, data) {
             if (this._active === 0) {
+                //alert('aqui');
                 // the start callback is triggered when an upload starts
                 // and no other uploads are currently running,
                 // equivalent to the global ajaxStart event:

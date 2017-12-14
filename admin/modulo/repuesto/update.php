@@ -17,18 +17,29 @@
 
 	$data = json_decode($data);
 
+	if( $data->statusRep == 'on' )
+		$statusRep = 1;
+	else
+		$statusRep = 0;
+
 	$strQuery = "UPDATE repuesto SET dateReg = '".$fecha." ".$hora."', ";
 	$strQuery.= "numParte = '".$data->numParte."', name = '".$data->name."', fromRep = '".$data->fromRep."', ";
-	$strQuery.= "priceSale = '".$data->priceSale."', priceBuy = '".$data->priceBuy."', detail='".$data->detail."', status = 'Activo' ";
+	$strQuery.= "priceSale = '".$data->priceSale."', priceBuy = '".$data->priceBuy."', stockMin='".$data->cantidadMin."', statusRep='".$statusRep."', detail='".$data->detail."', status = 'Activo' ";
 	$strQuery.= "WHERE id_repuesto = '".$data->idResp."' ";
 
 	$sql = $db->Execute($strQuery);
 
-	$strQuery = "UPDATE almacen SET dateReg = '".$fecha." ".$hora."', ";
+	/*$strQuery = "UPDATE almacen SET dateReg = '".$fecha." ".$hora."', ";
 	$strQuery.= "id_sucursal = '".$data->radioRep."', cantidad = '".$data->cantidad."', status = 'Activo' ";
 	$strQuery.= "WHERE id_repuesto = '".$data->idResp."' ";
 
 	$sql = $db->Execute($strQuery);
+
+	/*$strQuery = "UPDATE suministra SET dateReg = '".$fecha." ".$hora."', ";
+	$strQuery.= "id_repuesto = '".$data->idResp."', id_proveedor = '".$data->proveedor."', cantidad = '".$data->cantidad."' ";
+	$strQuery.= "WHERE id_repuesto = '".$data->idResp."' AND id_proveedor =  ";
+
+	$sql = $db->Execute($strQuery);*/
 
 	/*********************ACTUALIZA FOTO Y ENVIANDO DATOS POR EMAIL*******************************/
 

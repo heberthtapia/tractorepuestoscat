@@ -9,6 +9,9 @@ $query = $db->Execute($sql);
 
 $sql ="SELECT * FROM sucursal";
 $strQuery = $db->Execute($sql);
+
+$sql ="SELECT * FROM proveedor";
+$queryProv = $db->Execute($sql);
 ?>
 <form id="formNew" action="javascript:saveForm('formNew','save.php')" class="form-horizontal" autocomplete="off" >
 	<div class="modal fade" id="dataRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -22,7 +25,7 @@ $strQuery = $db->Execute($sql);
 					<div id="datos_ajax"></div>
 
 					<div class="form-group">
-						<label for="fecha" class="control-label col-md-2">Fecha:</label>
+						<label for="fecha" class="control-label col-md-3">Fecha:</label>
 						<div class="col-md-4">
 							<input id="fecha" name="fecha" type="text" class="form-control" value="<?=$fecha;?> <?=$hora;?>" disabled="disabled" />
 						</div>
@@ -30,7 +33,7 @@ $strQuery = $db->Execute($sql);
 						<input id="tabla" name="tabla" type="hidden" value="repuesto">
 					</div>
 					<div class="form-group">
-						<label for="fecha" class="control-label col-md-2">Categoria:</label>
+						<label for="categoria" class="control-label col-md-3">Categoria:</label>
 						<div class="col-md-4">
 							<select id="categoria" name="categoria" class="form-control" data-validation="required">
 								<option value="" disabled selected hidden>Categoria</option>
@@ -45,7 +48,7 @@ $strQuery = $db->Execute($sql);
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="numParte" class="control-label col-md-2"># De Parte:</label>
+						<label for="numParte" class="control-label col-md-3"># De Parte:</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" id="numParte" name="numParte" placeholder="# de Parte"
 								   data-validation="required"> <!--server-->
@@ -53,25 +56,47 @@ $strQuery = $db->Execute($sql);
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="name" class="control-label col-md-2">Repuesto:</label>
-						<div class="col-md-10">
+						<label for="proveedor" class="control-label col-md-3">Proveedor:</label>
+						<div class="col-md-4">
+							<select id="proveedor" name="proveedor" class="form-control" data-validation="required">
+								<option value="" disabled selected hidden>Proveedor</option>
+								<option value="0">Ninguno</option>
+								<?php
+									while ($row = $queryProv->FetchRow()) {
+								?>
+								<option value="<?=$row['id_proveedor']?>"><?=$row['nombreEmp']?></option>
+								<?php
+									}
+								?>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="control-label col-md-3">Repuesto:</label>
+						<div class="col-md-9">
 							<input type="text" class="form-control" id="name" name="name" placeholder="Nombre Repuesto" data-validation="required">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="fromRep" class="control-label col-md-2">Repuesto Para Modelos:</label>
-						<div class="col-md-10">
+						<label for="fromRep" class="control-label col-md-3">Repuesto Para Modelos:</label>
+						<div class="col-md-9">
 							<input type="text" class="form-control" id="fromRep" name="fromRep" placeholder="Repuesto Para" data-validation="required">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="cantidad" class="control-label col-md-2">Cantidad:</label>
+						<label for="cantidad" class="control-label col-md-3">Cantidad en Stock:</label>
 						<div class="col-md-4 col-xs-6">
-							<input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Cantidad" data-validation="required number" >
+							<input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Cantidad en Stock" data-validation="required number" >
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="priceSale" class="control-label col-md-2">Precio Venta:</label>
+						<label for="cantidadMin" class="control-label col-md-3">Cantidad Minima en Stock:</label>
+						<div class="col-md-4 col-xs-6">
+							<input type="text" class="form-control" id="cantidadMin" name="cantidadMin" placeholder="Cantidad Minima en Stock" data-validation="required number" >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="priceSale" class="control-label col-md-3">Precio Venta:</label>
 						<div class="col-md-4 col-xs-6 input-group">
 							<div class="input-group-addon">Bs</div>
 							<input type="text" class="form-control" id="priceSale" name="priceSale" placeholder="Precio Venta"
@@ -82,7 +107,7 @@ $strQuery = $db->Execute($sql);
 						<div id="error-container"></div>
 					</div>
 					<div class="form-group">
-						<label for="priceBuy" class="control-label col-md-2">Precio Compra:</label>
+						<label for="priceBuy" class="control-label col-md-3">Precio Compra:</label>
 						<div class="col-md-4 col-xs-6 input-group">
 							<div class="input-group-addon">Bs</div>
 							<input type="text" class="form-control" id="priceBuy" name="priceBuy" placeholder="Precio Compra"
@@ -93,14 +118,22 @@ $strQuery = $db->Execute($sql);
 						<div id="error-container1"></div>
 					</div>
 					<div class="form-group">
-						<label for="detail" class="control-label col-md-2">Detalle:</label>
-						<div class="col-md-10">
+						<div class="checkbox">
+						  <label>
+						    <input id="statusRep" name="statusRep" type="checkbox" checked />
+						     Insertar Repuesto al Inventario
+						  </label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="detail" class="control-label col-md-3">Detalle:</label>
+						<div class="col-md-9">
 							<textarea class="form-control" id="detail" name="detail" data-validation="required" placeholder="Detalle" rows="3"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="detail" class="control-label col-md-2">Sucursal:</label>
-						<div class="col-md-10">
+						<label for="detail" class="control-label col-md-3">Sucursal:</label>
+						<div class="col-md-9">
 						<?php
 							while ($row = $strQuery->FetchRow()) {
 						?>
@@ -117,7 +150,7 @@ $strQuery = $db->Execute($sql);
 
 					        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 					        <div class="row fileupload-buttonbar">
-					            <div class="col-lg-7">
+					            <div class="col-md-12">
 					                <!-- The fileinput-button span is used to style the file input field as button -->
 					                <span class="btn btn-success btn-sm fileinput-button">
 					                    <i class="fa fa-folder-open-o" aria-hidden="true"></i>
@@ -141,7 +174,7 @@ $strQuery = $db->Execute($sql);
 					                <span class="fileupload-process"></span>
 					            </div>
 					            <!-- The global progress state -->
-					            <div class="col-lg-5 fileupload-progress fade">
+					            <div class="col-md-12 fileupload-progress fade">
 					                <!-- The global progress bar -->
 					                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
 					                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
@@ -181,10 +214,27 @@ $strQuery = $db->Execute($sql);
 	$('#dataRegister').on('hidden.bs.modal', function (e) {
 		// do something...
 		$('#formNew').get(0).reset();
-		$('div.iradio_square-blue').removeClass('checked');
+		//$('div.iradio_square-blue').removeClass('checked');
 		//despliega('modulo/almacen/producto.php','contenido');
 	});
+
+	$('#dataRegister').on('show.bs.modal', function (event) {
+		//alert('entra');
+		$('#statusRep:checkbox').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          //increaseArea: '100%' // optional
+        });
+
+	});
+
 	$(document).ready(function(){
+		$.validate({
+          lang: 'es',
+          modules : 'security'
+        });
+      	//$('#obser').restrictLength( $('#max-length-element') );
+
 		//UPLOAD FILES
 		'use strict';
 	    // Initialize the jQuery File Upload widget:

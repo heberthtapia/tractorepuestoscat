@@ -18,6 +18,27 @@ function despliega(p, div, id, pag){
 	});
 }
 
+function sendEmail(p){
+    var dato = JSON.stringify( $('#Formulario').serializeObject() );
+    $.ajax({
+        url: p,
+        type: 'post',
+        dataType: 'json',
+        async:true,
+        data:{res:dato},
+        beforeSend: function(data){
+           // $("#"+div).html('<div id="load" align="center" class="alert alert-success" role="alert"><p>Cargando contenido. Por favor, espere ...</p></div>');
+        },
+        success: function(data){
+            $('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Se mensaje, fue enviado correctamente.</strong></div><br>').fadeIn(4000,function (){
+                    $('#datos_ajax').fadeOut(2000,function () {
+                        $('#myModal').modal('hide').delay(7000);
+                    });
+                });
+        }
+    });
+}
+
 function removeCotizar(id){
     var num = sessionStorage.getItem("num");
     var cod;

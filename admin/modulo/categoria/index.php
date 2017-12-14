@@ -301,7 +301,7 @@
                                         data-idCat="<?=$row['id_categoria']?>"
                                         data-foto="<?=$row['foto']?>"
                                         data-name="<?=$row['name']?>"
-                                        data-detail="<?=$row['description']?>"
+                                        data-detailu="<?=$row['description']?>"
                                         data-size="<?=$row['size']?>"
                                     >
                                     <i class='fa fa-pencil-square-o '></i>
@@ -458,9 +458,8 @@
     });
   });
 
-  $('#obser').restrictLength( $('#max-length-element') );
-
   $('div#sidebar').find('a#categoria').addClass('active');
+  $('div#sidebar').find('li#listCat').addClass('active');
 </script>
 
 

@@ -343,9 +343,6 @@
     <script type="text/javascript" src="../../assets/js/es.js"></script>
     <!--icheck-->
     <script type="text/javascript" src="../../assets/js/icheck.js"></script>
-    <!--camara WEB-->
-    <script type="text/javascript" src="../../assets/webcam/webcam.js"></script>
-    <script type="text/javascript" src="../../assets/js/script.js"></script>
     <!--uploadIfy-->
     <script type="text/javascript" src="../../uploadify/jquery.uploadify-3.1.js"></script>
 
@@ -405,9 +402,9 @@
         });
       });
 
-      $('#obser').restrictLength( $('#max-length-element') );
 
       $('div#sidebar').find('a#sucursal').addClass('active');
+      $('div#sidebar').find('li#listSucursal').addClass('active');
     </script>
 <?PHP
     include 'newSucursal.php';

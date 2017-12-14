@@ -29,7 +29,26 @@ session_start();
     session_destroy();
     header("Location: index.php");
   }
+  $sql = 'SELECT * ';
+  $sql.= 'FROM empleado ';
+  $sql.= 'WHERE id_empleado = '.$_SESSION['idEmp'].'';
 
+  $reg = $db->Execute($sql);
+
+  $row = $reg->FetchRow();
+
+  $nombre = ltrim($row['nombre']);
+  $nombre = rtrim($nombre);
+
+  $nom = explode(' ',$nombre);
+
+  $nombre1 = strtoupper($nom[0]);
+  $nombre2 = strtoupper($nom[1]);
+
+
+  $apP = strtoupper($row['apP']);
+
+  $_SESSION['inc'] = $nombre1[0].''.$apP[0].'-';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -165,7 +184,7 @@ session_start();
       *********************************************************************************************************************************************************** -->
       <!--sidebar start-->
       <aside>
-          <div id="sidebarChat"  class="nav-collapse ">
+          <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
 
@@ -178,18 +197,29 @@ session_start();
                           <span>Tablero</span>
                       </a>
                   </li>
+
+                  <li class="sub-menu">
+                      <a id="venta" href="javascript:;" >
+                          <i class="fa fa-handshake-o"></i>
+                          <span>Ventas</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="modulo/venta/venta.php">Punto de Venta</a></li>
+                          <li><a  href="modulo/venta/">Lista de Ventas</a></li>
+                      </ul>
+                  </li>
+
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
+                          <i class="fa fa-archive"></i>
                           <span>INVENTARIO</span>
                       </a>
                       <ul class="sub">
                           <li><a  href="form_component.html">TIENDA CENTRAL</a></li>
-                      </ul>
-                      <ul class="sub">
                           <li><a  href="form_component.html">SUCURSAL UNO</a></li>
                       </ul>
                   </li>
+
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-wrench"></i>
@@ -222,7 +252,7 @@ session_start();
                   </li>
 
                   <li class="sub-menu">
-                      <a id="empleado" href="javascript:;" >
+                      <a href="javascript:;" >
                           <i class="fa fa-home"></i>
                           <span>Sucursales</span>
                       </a>
@@ -233,7 +263,7 @@ session_start();
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-list"></i>
+                          <i class="fa fa-file-text"></i>
                           <span>Reportes</span>
                       </a>
                       <ul class="sub">
@@ -244,16 +274,24 @@ session_start();
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-users"></i>
-                          <span>Contactos</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="#">Clientes</a></li>
-                          <li><a  href="modulo/proveedor">Proveedores</a></li>
-                          <!-- <li><a  href="todo_list.html">Todo List</a></li>-->
-                      </ul>
-                  </li>
+                        <a href="javascript:;" >
+                            <i class="fa fa-male"></i>
+                            <span>Clientes</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a  href="modulo/cliente/">Lista Clientes</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="sub-menu">
+                        <a id="proveedor" href="javascript:;" >
+                            <i class="fa fa-truck"></i>
+                            <span>Proveedores</span>
+                        </a>
+                        <ul class="sub">
+                            <li id="listProveedor"><a  href="modulo/proveedor/">Lista Proveedores</a></li>
+                        </ul>
+                    </li>
                   <!-- <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
@@ -676,8 +714,8 @@ session_start();
               "footer":"At Paisley Park",
               "classname":"purple-event"
             },
-            {"date":"2017-08-07","badge":true,"title":"Example 1"},
-            {"date":"2017-08-25","badge":true,"title":"Example 2"}
+            {"date":"2017-11-07","badge":true,"title":"Example 1"},
+            {"date":"2017-11-25","badge":true,"title":"Example 2"}
         ];
 
         $(document).ready(function () {
@@ -692,6 +730,7 @@ session_start();
                 today: true,
                 show_days: true,
                 weekstartson: 0,
+                data: eventData,
                 action: function () {
                     return myDateFunction(this.id, false);
                 },
@@ -784,7 +823,7 @@ session_start();
     </div>
   </div>
 </aside>
-<div id="sidebar"></div>
+<div id="sidebarMenu"></div>
 <!-- AQUI TERMINA -->
 
   </body>

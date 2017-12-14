@@ -10,6 +10,7 @@ $hora = $op->Time();
           lang: 'es',
           modules : 'security, modules/logic'
       	});
+      	$('#detail').restrictLength( $('#max-length-element') );
 
       	$('#dataRegister').on('show.bs.modal', function() {
 			//Must wait until the render of the modal appear, thats why we use the resizeMap and NOT resizingMap!! ;-)
@@ -39,7 +40,7 @@ $hora = $op->Time();
 	    });
 	    $('#formNew').bind('fileuploadcompleted', function (e, data) {
 	        $.each(data.files, function (index, file) {
-	        //console.log('Added file: ' + file.name);
+	        	console.log('Added file: ' + file.name);
 	        	saveImg('categoria', file.name, file.size);
                 //loadImg('categoria', 'auxImg');
 	        });
@@ -93,6 +94,7 @@ $hora = $op->Time();
 					<div class="form-group">
 						<label for="detail" class="control-label col-md-2">Detalle:</label>
 						<div class="col-md-10">
+							<p id="maxText" class="text-info"><span id="max-length-element">200</span> caracteres restantes</p>
 							<textarea class="form-control" id="detail" name="detail" data-validation="required" placeholder="Detalle" rows="3"></textarea>
 						</div>
 					</div>

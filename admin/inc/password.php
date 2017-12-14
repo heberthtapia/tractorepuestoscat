@@ -54,7 +54,7 @@
 	$_SESSION['idEmp']	= $reg['id_empleado'];
 	$_SESSION['cargo']	= $reg['cargo'];
 	$_SESSION['tiempo'] = time();
-
+	$_SESSION['nameUser'] = $reg['nombre'].' '.$reg['apP'];
 	$_SESSION["idUser"] = $reg['id_usuario'];
 
 	$data->cargo = $reg['cargo'];

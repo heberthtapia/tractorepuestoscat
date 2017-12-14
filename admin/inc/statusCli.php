@@ -13,7 +13,7 @@
 	$id		= $_POST['id'];
 	$status = $_POST['status'];
 
-	$strQuery = "UPDATE cliente SET status = '".$status."' WHERE id_cliente = '$id'";
+	$strQuery = "UPDATE cliente SET statusCli = '".$status."' WHERE id_cliente = '$id'";
 	$str = $db->Execute($strQuery);
 
 	if($str)

@@ -18,10 +18,14 @@
 	$data = json_decode($data);
 
 	//$cargo = $op->toCargo($data->cargo);
+	if( $data->statusRep == 'on' )
+		$statusRep = 1;
+	else
+		$statusRep = 0;
 
-	$strQuery = "INSERT INTO repuesto ( id_categoria, numParte,  name, fromRep, priceSale, priceBuy, detail, dateReg, status ) ";
+	$strQuery = "INSERT INTO repuesto ( id_categoria, numParte,  name, fromRep, priceSale, priceBuy, detail, stockMin, statusRep, dateReg, status ) ";
 	$strQuery.= "VALUES ('".$data->categoria."', '".$data->numParte."', '".$data->name."', '".$data->fromRep."','".$data->priceSale."','".$data->priceBuy."', ";
-	$strQuery.= "'".$data->detail."', '".$data->date."', 'Activo' )";
+	$strQuery.= "'".$data->detail."', '".$data->cantidadMin."', '".$statusRep."', '".$data->date."', 'Activo' )";
 
 	$sql = $db->Execute($strQuery);
 
@@ -29,6 +33,11 @@
 
 	$strQuery = "INSERT INTO almacen ( id_repuesto, id_sucursal, cantidad, dateReg, status ) ";
 	$strQuery.= "VALUES ('".$lastId."', '".$data->radioRep."', '".$data->cantidad."', '".$data->date."', 'Activo' )";
+
+	$sql = $db->Execute($strQuery);
+
+	$strQuery = "INSERT INTO suministra ( id_repuesto, id_proveedor, cantidad, dateReg ) ";
+	$strQuery.= "VALUES ('".$lastId."', '".$data->proveedor."', '".$data->cantidad."', '".$data->date."' )";
 
 	$sql = $db->Execute($strQuery);
 
@@ -45,7 +54,7 @@
 			$name = $row['name'];
 			$size = $row['size'];
 
-			$strQuery = "INSERT INTO foto ( id_repuesto, name, size, dateReg, status ) "; 
+			$strQuery = "INSERT INTO foto ( id_repuesto, name, size, dateReg, status ) ";
 			$strQuery.= "VALUES ( '".$lastId."', '".$name."', '".$size."', '".$data->date."', 'Activo' )";
 
 			$strQ = $db->Execute($strQuery);

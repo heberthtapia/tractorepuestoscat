@@ -116,7 +116,7 @@ a:focus {
 	width: 260px;
 }
 
-#sidebar aside {
+#sidebarMenu aside {
 	/*background-attachment: fixed;*/
 	background-clip: border-box;
 	background-color: rgba(0, 0, 0, 0);
@@ -137,7 +137,7 @@ a:focus {
 /**
  * modificaciones
  */
-aside#sidebar_primary {
+aside#sidebarMenu_primary {
 	background-clip: border-box;
 	background-color: rgba(0, 0, 0, 0);
 	background-image: url("../images/fondo.jpg");
@@ -157,7 +157,7 @@ aside#sidebar_primary {
 	border-radius: 5px 5px 0 0;
 }
 
-/*aside#sidebar_secondary {
+/*aside#sidebarMenu_secondary {
 	right: 350px;
 	width: 300px;
 }*/

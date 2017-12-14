@@ -45,6 +45,7 @@ $(document).ready(function(e) {
             coorX = button.data('cx');
             coorY = button.data('cy');
         var obser = button.data('obser');
+        var sucur = button.data('sucur');
 
         var modal = $(this);
         //modal.find('.modal-title').text('Modificar Empleado: '+nombre+' '+apP);
@@ -65,6 +66,7 @@ $(document).ready(function(e) {
         modal.find('.modal-body #cxP').val(coorX);
         modal.find('.modal-body #cyP').val(coorY);
         modal.find('.modal-body #obserP').val(obser);
+        modal.find('.modal-body #sucursalP').val(sucur);
 
         if(foto !== ''){
             modal.find('.modal-body #fotoP').html('<img class="thumb" src="../../thumb/phpThumb.php?src=../modulo/empleado/uploads/files/'+foto+'&amp;w=120&amp;h=75&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="">');
@@ -325,8 +327,25 @@ $(document).ready(function(e) {
                             </button>
                         </div>
                     </div>
+                    <?php
+                        $strQuery = "SELECT * FROM sucursal ORDER BY (nameSuc)";
+                        $query = $db->Execute($strQuery);
+                    ?>
                     <div class="row">
-                        <div class="col-md-8 form-group">
+                        <div class="col-md-4 form-group">
+                            <label for="sucursalP" class="sr-only">Trabaja en:</label>
+                            <select id="sucursalP" name="sucursalP" class="form-control" disabled="">
+                                <option value="" disabled selected hidden>Trabaja en la Sucursal</option>
+                                <?php
+                                    while( $reg = $query->FetchRow() ){
+                                ?>
+                                <option value="<?=$reg['id_sucursal']?>"><?=$reg['nameSuc']?></option>
+                                <?php
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
                             <label for="addresP" class="sr-only"></label>
                             <input id="addresP" name="addresP" type="text" placeholder="Direcci&oacute;n" class="form-control" disabled=""/>
                         </div>

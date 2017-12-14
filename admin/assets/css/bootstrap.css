@@ -2459,7 +2459,7 @@ input[type="month"].input-lg {
 .radio-inline + .radio-inline,
 .checkbox-inline + .checkbox-inline {
   margin-top: 0;
-  margin-left: 10px;
+  /*margin-left: 10px;*/
 }
 input[type="radio"][disabled],
 input[type="checkbox"][disabled],
@@ -3506,7 +3506,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   font-size: 14px;
   font-weight: normal;
   line-height: 1;
-  color: #555;
+  color: #FFF;
   text-align: center;
   background-color: #eee;
   border: 1px solid #ccc;
@@ -4710,7 +4710,7 @@ a.thumbnail.active {
   }
 }
 .progress {
-  height: 20px;
+  height: 10px;
   /*margin-bottom: 20px;*/
   margin-bottom: 0px;
   overflow: hidden;

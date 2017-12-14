@@ -266,7 +266,7 @@
                   </thead>
                   <tbody>
                   <?PHP
-                  $sql   = "SELECT r.id_repuesto, c.id_categoria, c.name AS cat, r.numParte, r.name, r.detail, r.fromRep, a.cantidad, r.priceSale, r.priceBuy, s.id_sucursal, s.nameSuc, r.status ";
+                  $sql   = "SELECT r.id_repuesto, c.id_categoria, c.name AS cat, r.numParte, r.stockMin, r.name, r.detail, r.fromRep, a.cantidad, r.priceSale, r.priceBuy, s.id_sucursal, s.nameSuc, r.status, r.statusRep ";
                   $sql  .= "FROM repuesto AS r, almacen AS a, sucursal AS s, categoria AS c WHERE r.id_repuesto = a.id_repuesto ";
                   $sql  .= "AND a.id_sucursal = s.id_sucursal AND r.id_categoria = c.id_categoria ORDER BY (r.dateReg) DESC ";
 
@@ -277,6 +277,10 @@
                       die("failed");
 
                   while( $row = $srtQuery->FetchRow()){
+
+                    $sqlProv = "SELECT id_proveedor FROM suministra WHERE id_repuesto = '".$row['id_repuesto']."' ";
+                    $srtProv = $db->Execute($sqlProv);
+                    $reg = $srtProv->FetchRow();
 
                       ?>
                       <tr id="tb<?=$row[0]?>">
@@ -297,13 +301,16 @@
                                       data-numParte   =   "<?=$row['numParte']?>"
                                       data-name       =   "<?=$row['name']?>"
                                       data-idCat      =   "<?=$row['id_categoria']?>"
+                                      data-proveedor  =   "<?=$reg['id_proveedor']?>"
                                       data-fromRep    =   "<?=$row['fromRep']?>"
                                       data-cantidad   =   "<?=$row['cantidad']?>"
+                                      data-cantidadMin=   "<?=$row['stockMin']?>"
                                       data-priceSale  =   "<?=$row['priceSale']?>"
                                       data-priceBuy   =   "<?=$row['priceBuy']?>"
                                       data-detail     =   "<?=$row['detail']?>"
                                       data-idSuc      =   "<?=$row['id_sucursal']?>"
-                                      data-nameSuc    =   "<?=$row['nameSuc']?>">
+                                      data-nameSuc    =   "<?=$row['nameSuc']?>"
+                                      data-statusRep  =   "<?=$row['statusRep']?>" >
                                       <i class='glyphicon glyphicon-edit'></i> Modificar
                                   </button>
 
@@ -424,7 +431,10 @@
 
     <script>
       $(document).ready(function() {
-        $('#tablaList').DataTable({
+        $('#tablaList').on('draw.dt', function(e, settings, json) {
+          if (typeof drawDT359 == 'function') { drawDT359(); }
+        })
+        .DataTable({
             "language": {
                 "lengthMenu": "Mostrar _MENU_ filas por pagina",
                 "zeroRecords": "No se encontro nada - Lo siento",
@@ -448,18 +458,26 @@
             ]
         });
 
-        $('input.repuesto, input:radio').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          //increaseArea: '100%' // optional
-        });
+        function drawDT359() {
+          // when the alert pops up, you will still be on the same page
+          // new results page isn't shown at this moment, will be shown after
+          // so it seems the draw event is being triggered early
+          console.log('drawing table ...');
+          $('input.repuesto, input:radio').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            //increaseArea: '100%' // optional
+          });
+        }
 
-        $('input:radio').on('ifChecked', function(event){
+
+
+        /*$('input:radio').on('ifChecked', function(event){
             $('input:radio').validate();
         });
         $('input:radio').on('ifUnchecked',function(event){
            //
-        });
+        });*/
 
         $('input.repuesto:checkbox').on('ifChecked', function(event){
             id = $(this).attr('id');
@@ -470,15 +488,11 @@
             statusRep(id, 'Inactivo');
         });
 
-        $.validate({
-          lang: 'es',
-          modules : 'security'
-        });
       });
 
-      $('#obser').restrictLength( $('#max-length-element') );
 
       $('div#sidebar').find('a#repuesto').addClass('active');
+      $('div#sidebar').find('li#listResp').addClass('active');
     </script>
 <?PHP
     include 'delProducto.php';
@@ -563,3 +577,8 @@
     </tr>
 {% } %}
 </script>
+<style type="text/css">
+  .input-group-addon {
+  color: #333;
+}
+</style>

@@ -218,6 +218,8 @@ $(document).ready(function(e) {
             coorX = button.data('cx');
             coorY = button.data('cy');
         var obser = button.data('obser');
+        var sucur = button.data('sucur');
+        //alert(cargo);
 
         var modal = $(this);
         //modal.find('.modal-title').text('Modificar Empleado: '+nombre+' '+apP);
@@ -238,6 +240,7 @@ $(document).ready(function(e) {
         modal.find('.modal-body #cxU').val(coorX);
         modal.find('.modal-body #cyU').val(coorY);
         modal.find('.modal-body #obserU').val(obser);
+        modal.find('.modal-body #sucursalU').val(sucur);
 
         if(foto !== ''){
             modal.find('.modal-body #fotoU').html('<img class="thumb" src="../../thumb/phpThumb.php?src=../modulo/empleado/uploads/files/'+foto+'&amp;w=120&amp;h=75&amp;far=1&amp;bg=FFFFFF&amp;hash=361c2f150d825e79283a1dcc44502a76" alt="">');
@@ -339,6 +342,8 @@ $(document).ready(function(e) {
             html = '';
             $('#loadImages tbody').html(html);
         });
+
+        $('#obserU').restrictLength( $('#max-length-elementU') );
     });
 
 </script>
@@ -443,8 +448,25 @@ $(document).ready(function(e) {
                             </button>
                         </div>
                     </div>
+                    <?php
+                        $strQuery = "SELECT * FROM sucursal ORDER BY (nameSuc)";
+                        $query = $db->Execute($strQuery);
+                    ?>
                     <div class="row">
-                        <div class="col-md-8 form-group">
+                        <div class="col-md-4 form-group">
+                            <label for="sucursalU" class="sr-only">Trabaja en:</label>
+                            <select id="sucursalU" name="sucursalU" class="form-control" data-validation="required">
+                                <option value="" disabled selected hidden>Trabaja en la Sucursal</option>
+                                <?php
+                                    while( $reg = $query->FetchRow() ){
+                                ?>
+                                <option value="<?=$reg['id_sucursal']?>"><?=$reg['nameSuc']?></option>
+                                <?php
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
                             <label for="addresU" class="sr-only"></label>
                             <input id="addresU" name="addresU" type="text" placeholder="Direcci&oacute;n" class="form-control" data-validation="required"/>
                         </div>
@@ -500,7 +522,7 @@ $(document).ready(function(e) {
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label for="obser" class="sr-only"></label>
-                            <span id="max-length-element">200</span><span id="maxText"> caracteres restantes</span>
+                            <p id="maxText" class="text-info"><span id="max-length-elementU">200</span> caracteres restantes</p>
                             <textarea id="obserU" name="obserU" cols="2" placeholder="Observaciones" class="form-control"></textarea>
                         </div>
                     </div>

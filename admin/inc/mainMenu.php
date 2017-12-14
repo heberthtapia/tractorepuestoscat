@@ -1,5 +1,5 @@
 <aside>
-    <div id="sidebarChat"  class="nav-collapse ">
+    <div id="sidebar"  class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
 
@@ -14,12 +14,36 @@
             </li>
 
             <li class="sub-menu">
+                <a id="venta" href="javascript:;" >
+                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                    <span>Ventas</span>
+                </a>
+                <ul class="sub">
+                    <li id="puntoVenta"><a  href="../../modulo/venta/venta.php">Punto de Venta</a></li>
+                    <li id="listVenta"><a  href="../../modulo/venta/">Lista de Ventas</a></li>
+                </ul>
+            </li>
+
+            <li class="sub-menu">
+                <a href="javascript:;" >
+                    <i class="fa fa-archive"></i>
+                    <span>INVENTARIO</span>
+                </a>
+                <ul class="sub">
+                    <li id="listCentral"><a  href="form_component.html">TIENDA CENTRAL</a></li>
+                </ul>
+                <ul class="sub">
+                    <li id="listSuc"><a  href="form_component.html">SUCURSAL UNO</a></li>
+                </ul>
+            </li>
+
+            <li class="sub-menu">
                 <a id="categoria" href="javascript:;" >
                     <i class="fa fa-th-list"></i>
                     <span>Categorias</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="../../modulo/categoria/">Lista Categorias</a></li>
+                    <li id="listCat"><a  href="../../modulo/categoria/">Lista Categorias</a></li>
                 </ul>
             </li>
 
@@ -29,7 +53,7 @@
                     <span>Repuestos</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="../../modulo/repuesto/index.php">Lista Repuestos</a></li>
+                    <li id="listResp"><a  href="../../modulo/repuesto/">Lista Repuestos</a></li>
                 </ul>
             </li>
 
@@ -39,7 +63,7 @@
                     <span>Empleados</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="../../modulo/empleado/">Lista Empleados</a></li>
+                    <li id="listEmp"><a  href="../../modulo/empleado/">Lista Empleados</a></li>
                 </ul>
             </li>
 
@@ -49,7 +73,37 @@
                     <span>Sucursales</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="../../modulo/sucursal/">Lista Sucursales</a></li>
+                    <li id="listSucursal"><a  href="../../modulo/sucursal/">Lista Sucursales</a></li>
+                </ul>
+            </li>
+
+            <li class="sub-menu">
+                <a id="reporte" href="javascript:;" >
+                    <i class="fa fa-file-text"></i>
+                    <span>Reportes</span>
+                </a>
+                <ul class="sub">
+                    <li id="listReporte"><a  href="../../modulo/reporte/">Generar Reporte</a></li>
+                </ul>
+            </li>
+
+            <li class="sub-menu">
+                <a id="cliente" href="javascript:;" >
+                    <i class="fa fa-male"></i>
+                    <span>Clientes</span>
+                </a>
+                <ul class="sub">
+                    <li id="listCliente"><a  href="../../modulo/cliente/">Lista Clientes</a></li>
+                </ul>
+            </li>
+
+            <li class="sub-menu">
+                <a id="proveedor" href="javascript:;" >
+                    <i class="fa fa-truck"></i>
+                    <span>Proveedores</span>
+                </a>
+                <ul class="sub">
+                    <li id="listProveedor"><a  href="../../modulo/proveedor/">Lista Proveedores</a></li>
                 </ul>
             </li>
 

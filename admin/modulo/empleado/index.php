@@ -322,6 +322,7 @@
                                                   data-cx="<?=$row['coorX']?>"
                                                   data-cy="<?=$row['coorY']?>"
                                                   data-obser="<?=$row['obser']?>"
+                                                  data-sucur="<?=$row['id_sucursal']?>"
                                           >
                                             <i class='fa fa-external-link'></i>
                                             <span>Vista Previa</span>
@@ -346,6 +347,7 @@
                                                   data-cx="<?=$row['coorX']?>"
                                                   data-cy="<?=$row['coorY']?>"
                                                   data-obser="<?=$row['obser']?>"
+                                                  data-sucur="<?=$row['id_sucursal']?>"
                                           >
                                             <i class='fa fa-pencil-square-o '></i>
                                             <span>Modificar</span>
@@ -437,8 +439,6 @@
     <script type="text/javascript" src="../../assets/js/vendor/jquery.ui.widget.js"></script>
     <!-- The Templates plugin is included to render the upload/download listings -->
     <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
-    <!-- The Templates plugin is included to render the upload/download listings -->
-    <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
     <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
     <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
     <!-- The Canvas to Blob plugin is included for image resizing functionality -->
@@ -504,9 +504,8 @@
     });
   });
 
-  $('#obser').restrictLength( $('#max-length-element') );
-
   $('div#sidebar').find('a#empleado').addClass('active');
+  $('div#sidebar').find('li#listEmp').addClass('active');
 </script>
 
 

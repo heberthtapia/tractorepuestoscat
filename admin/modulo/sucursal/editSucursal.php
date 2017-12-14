@@ -56,7 +56,7 @@ $hora = $op->Time();
 
 	$('#dataUpdate').on('hidden.bs.modal', function (e) {
 		// do something...
-		$('#form').get(0).reset();
+		$('#formUpdate').get(0).reset();
 	});
 
 	$('#dataUpdate').on('show.bs.modal', function (event) {

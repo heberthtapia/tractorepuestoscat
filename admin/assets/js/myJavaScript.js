@@ -119,7 +119,7 @@ function displaySection(p, sec, id){
 				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax').fadeOut(2000,function () {
 						$('#dataRegister').modal('hide').delay(7000);
-						despliega('modulo/cliente/listTabla.php','listTabla');
+						displaySection('listTabla.php','unseen');
 					});
 				});
 			}
@@ -150,6 +150,15 @@ function displaySection(p, sec, id){
 				});
 			}
 			if(data.tabla === 'categoria'){
+				//fnClickAddRowU(data,true);
+				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
+					$('#datos_ajax').fadeOut(2000,function () {
+						$('#dataRegister').modal('hide').delay(7000);
+						displaySection('listTabla.php','unseen');
+					});
+				});
+			}
+			if(data.tabla === 'proveedor'){
 				//fnClickAddRowU(data,true);
 				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax').fadeOut(2000,function () {
@@ -254,11 +263,19 @@ function updateForm(idForm, p){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
 						$('#dataUpdate').modal('hide').delay(7000);
-						despliega('modulo/cliente/listTabla.php','listTabla');
+						displaySection('listTabla.php','unseen');
 					});
 				});
 			}
 			if(data.tabla === 'categoria'){
+				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
+					$('#datos_ajax_update').fadeOut(2000,function () {
+						$('#dataUpdate').modal('hide').delay(7000);
+						displaySection('listTabla.php','unseen');
+					});
+				});
+			}
+			if(data.tabla === 'proveedor'){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
 						$('#dataUpdate').modal('hide').delay(7000);
@@ -323,9 +340,12 @@ function fDelete(idForm, p){
 				});
 			}
 			if(data.tabla === 'cliente'){
-				$('#dataDelete').modal('hide');
-				$('#dataDeleteCli').modal('hide');
-				despliega('modulo/'+data.tabla+'/listTabla.php','listTabla');
+				$('#datos_ajax_delete').html('<div class="alert alert-success" role="alert"><strong>Eliminado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
+					$('#datos_ajax_delete').fadeOut(2000,function () {
+						$('#dataDelete').modal('hide').delay(7000);
+						displaySection('listTabla.php','unseen');
+					});
+				});
 			}
 			if(data.tabla === 'produccion'){
 				$('#datos_ajax_delete').html('<div class="alert alert-success" role="alert"><strong>Eliminado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
@@ -488,6 +508,21 @@ function statusCat(id, status){
 		}
 	});
 }
+
+/**
+ *  STATUS PROVEEDOR
+ */
+function statusPro(id, status){
+	$.ajax({
+		url: '../../inc/statusPro.php',
+		type: 'post',
+		async:true,
+		data: 'id='+id+'&status='+status,
+		success: function(data){
+
+		}
+	});
+}
 /**
  * MODULO PEDIDO
  * AGREGA PEDIDO
@@ -524,7 +559,7 @@ function statusCat(id, status){
 					  //$('tr#'+data.producto).find('td').eq(4).find('input').val(precio);
 
 				  }else{
-					alert('Producto sin Stock.....');
+					alert('Producto sin Stock...!!!');
 				}
 				sw = 1;
 			}
@@ -595,7 +630,7 @@ function adicFilaEdit(idForm, p){
 					  $('tr#'+data.producto).find('td').eq(5).find('input').val(precio.toFixed(2));
 					  //$('tr#'+data.producto).find('td').eq(4).find('input').val(precio);
 				  }else{
-					alert('Producto sin Stock.....');
+					alert('Producto sin Stock...!!!');
 				}
 				sw = 1;
 			}
@@ -853,7 +888,7 @@ function cancelarPedidoEdit(){
 		alert('Error al eliminar el ITEM.');
 	}
 });
-  return resp;
+  	return resp;
 }
 /**
  * [pad aumenta ceros a la izquierda]
@@ -875,6 +910,7 @@ return n;
  * Guardar imagenes a la bd
  */
 function saveImg(mod, name, size){
+	//alert('entra varias veces...!!!');
 	$.ajax({
 		url: '../../modulo/'+mod+'/uploadFile.php',
 		type: 'post',
@@ -995,4 +1031,461 @@ function loadImagesMulti(mod, id){
             });
         }
     });
+}
+
+
+/*FUNCIONES PARA EL PUNTO DE VENTA*/
+/************************************************************************************/
+function busca_articulo(){
+    $(document).ready(function(){
+    var cod = $("#codigo").val().trim();
+        if(cod.trim()!=""){
+        $(document).ready(function(){
+        	$.ajax({
+          	beforeSend: function(){
+            	$("#data_articulo").html("Buscando informacion del articulo...");
+         	},
+          	url: '../../modulo/venta/buscaRepuesto.php',
+          	dataType: 'json',
+          	type: 'POST',
+          	data: 'codigo='+$("#codigo").val(),
+          	success: function(data){
+          		//alert(data[0].priceSale);
+            	if(data==0){
+            		alert("No existe el articulo...!");
+            		$("#codigo").val("");
+            		$("#codigo").focus();
+            		$("#cantidad").attr("disabled", true);
+            		$("#preciou").attr("disabled", true);
+            	}else{
+		            $(".widget-user-desc").html(data[0].namePro);
+		            $(".exis").html(data[0].cantidad);
+		            $(".preciol").html(data[0].priceSale);
+		            //$("#preciou").attr("disabled", false);
+		            //$('#preciou').number(true, 2);
+		            $("#preciou").val(data[0].priceSale);
+		            //$('#cantidad').number(true, 2);
+		            $("#cantidad").attr("disabled", false);
+		            $("#cantidad").val(0.00);
+		            $("#preciou").select();
+		            $("#cantidad").focus();
+			            if(data[0].name!=""){
+			               $("#imagen").attr("src",'../../modulo/repuesto/uploads/files/'+data[0].name);
+			            }else{
+			               $("#imagen").attr("src",'../../assets/img/sin_foto.png');
+			            }
+			            if(data[0].cantidad <= 0){
+			                alert("No hay suficiente existencia...!")
+			                $("#codigo").val("");
+			                $("#codigo").focus();
+			                $("#cantidad").attr("disabled", true);
+			                $("#preciou").attr("disabled", true);
+			            }
+            }
+           },
+           error: function(jqXHR,estado,error){
+            alert("Parece ser que hay un error por favor, reportalo a Soporte inmediatamente...!");
+           }
+           });
+          });
+          }else{
+          }
+          })
+         }
+/***************************************************************************************/
+function busqueda_art(){
+   $("#modal_busqueda_arts").modal({
+             show:true,
+             backdrop: 'static',
+             keyboard: false
+            });
+   $('#modal_busqueda_arts').on('shown.bs.modal', function () {
+   $("#lista_articulos").html("");
+   $("#articulo_buscar").val("");
+   $("#articulo_buscar").focus();
+   });
+}
+/*****************************************************************************/
+function busca(){
+    $.ajax({
+        beforeSend: function(){
+          $("#lista_articulos").html("<img src='dist/img/default.gif'></img>");
+          },
+        url: 'busca_articulos_ayuda.php',
+        type: 'POST',
+        data: 'articulo = '+$("#articulo_buscar").val(),
+        success: function(x){
+        	$("#lista_articulos").html(x);
+        },
+        error: function(jqXHR,estado,error){
+        	$("#lista_articulos").html("Error en la peticion AJAX..."+estado+"      "+error);
+        }
+    });
+}
+/*****************************************************************************/
+function add_art(art){
+  //alert(art);
+  $("#modal_busqueda_arts").modal("toggle");
+  $("#codigo").val(art.trim());
+  busca_articulo();
+}
+/*************************************************************************************/
+ function agrega_a_lista(){
+   $(document).ready(function(){
+        if( $("#cantidad").val() > 0 ){
+
+            var articulo 	=	$("#codigo").val();
+            var descripcion =	$(".widget-user-desc").html();
+            var precio 		=	$("#preciou").val();
+            var cantidad 	=	$("#cantidad").val();
+            var canTotal	=	$(".exis").text();
+            //alert(canTotal);
+            var price 		=	precio.split("Bs. ");
+            var monto 		=	cantidad*price[1];
+            var sw = 0;
+
+            $('#tabla_articulos tbody').find('tr').each(function(index, element){
+				cod = $(this).attr('id');
+				//alert(cod);
+
+				if( cod === articulo ){
+
+					cant = $('tr#'+articulo).find('td').eq(2).text();
+					cant = parseInt(cant) + parseInt(cantidad);
+
+					if( parseFloat(cant) <= parseFloat(canTotal) ){
+
+					  precio = $('tr#'+articulo).find('td').eq(3).text();
+					  precio = parseFloat(precio) * parseFloat(cant);
+					  //alert(precio);
+					  $('tr#'+articulo).find('td').eq(2).text(cant);
+					  //$('tr#'+articulo).find('td').eq(3).find('input').val(cant);
+					  $('tr#'+articulo).find('td').eq(4).text(precio.toFixed(2));
+					  //$('tr#'+articulo).find('td').eq(4).find('input').val(precio);
+
+				  	}else{
+						alert('Producto sin Stock...!!!');
+					}
+					sw = 1;
+				}
+			});
+
+            if( sw === 0 && articulo !== undefined ){
+            	if( parseFloat(cantidad) <= parseFloat(canTotal) ){
+            		$("#tabla_articulos > tbody").append("<tr id='"+articulo+"'><td class='center'>"+articulo+"</td><td class='center'>"+descripcion+"</td><td class='center'>"+cantidad+"</td><td class='center'>"+price[1]+"</td><td class='center'>"+monto.toFixed(2)+"</td><td class='center'><button class='btn btn-block btn-danger btn-xs delete'><i class='icon-trash bigger-120'></i> Eliminar</button></td></tr>");
+            		$("#codigo").val("");
+		            $("#cantidad").val("");
+		            $("#preciou").val("");
+		            $(".widget-user-desc").text("");
+		            $(".preciol").text("0.00");
+		            $(".exis").text("0.00");
+		            $("#cantidad").attr("disabled", true);
+		            $("#preciou").attr("disabled", true);
+		            $("#codigo").focus();
+		            /*cancela_operacion();*/
+		            $("#imagen").attr("src",'../../assets/img/sin_foto.png');
+		            resumen();
+            	}else{
+					alert('Producto sin Stock...!!!');
+				}
+        	}
+
+        }else{
+            var n = noty({
+                text: "La cantidad es invalida...!",
+                theme: 'relax',
+                layout: 'center',
+                type: 'error',
+                timeout: 2000,
+            });
+        }
+    })
+}
+/******************************************************************************************/
+$(function(){
+         // Evento que selecciona la fila y la elimina
+	      $(document).on("click",".delete",function(){
+	     	var parent = $(this).parents().parents().get(0);
+		  $(parent).remove();
+           resumen();
+       	});
+       });
+/****************************************************************************************/
+function pone_num_venta(){
+          $(document).ready(function(){
+          $.ajax({
+          beforeSend: function(){
+            $("#num_ticket").html("Buscando...");
+           },
+          url: 'busca_ticket.php',
+          type: 'POST',
+          data: 'caja='+$("#ncaja").val(),
+          success: function(x){
+            $("#num_ticket").html("Caja: "+$("#ncaja").val()+" - Ticket # " +x);
+           },
+           error: function(jqXHR,estado,error){
+             $("#num_ticket").html('Hubo un error: '+estado+' '+error);
+           }
+           });
+          });
+        }
+/*****************************************************************************************/
+function resumen(){
+  	$(document).ready(function(){
+    var articulos=0.00;
+    var monto=0.00;
+    $('#tabla_articulos > tbody > tr').each(function(){
+    	articulos	+=parseFloat($(this).find("td").eq(2).html());
+    	monto		+=parseFloat($(this).find('td').eq(4).html());
+    });
+    $("#total_articulos").html("Total de Articulos: "+articulos.toFixed(2));
+
+    var des = $("#descuento").val();
+    des = des.split(" ");
+    if(des==""){
+    	des[0] = 0;
+    	//alert(des);
+    }
+
+    subTotal = monto;
+    monto = monto-((monto*des[0])/100);
+    $("#totales").html('Bs. ' + monto.toFixed(2));
+    $("#des").html(des[0]+' %');
+    $("#subTotal").html('Bs. '+ subTotal.toFixed(2));
+    if(articulos>0){
+      $("#btn-procesa").prop('disabled', false);
+      $("#btn-cancela").prop('disabled', false);
+      $("#descuento").prop('disabled', false);
+    }else{
+      $("#btn-procesa").prop('disabled', true);
+      $("#btn-cancela").prop('disabled', true);
+      $("#descuento").prop('disabled', true);
+    }
+    $("#total_venta").val(monto.toFixed(2));
+    })
+}
+
+/***********************************************************************************************/
+function cancela_venta(){
+     $("#btn_cancela").prop("disabled", true);
+     var n = noty({
+              text: "Deseas cancelar la venta...?",
+              theme: 'relax',
+              layout: 'center',
+              type: 'information',
+              buttons     : [
+                {addClass: 'btn btn-primary',
+                 text    : 'Si',
+                 onClick : function ($noty){
+                      $noty.close();
+                      $("#tabla_articulos > tbody:last").children().remove();
+                      resumen();
+                      cancela_codigo();
+                      $("#codigo").focus();
+                  }
+               },
+               {addClass: 'btn btn-danger',
+                text    : 'No',
+                onClick : function ($noty){
+                  $("#btn_cancela").prop("disabled", false);
+                   $noty.close();
+                 }
+                }
+              ]
+          });
+   }
+/***************************************************************************************/
+function cancela_codigo(){
+   $("#preciou").val("");
+   $("#cantidad").val("");
+   $("#preciou").attr("disabled", true);
+   $("#cantidad").attr("disabled", true);
+   $("#codigo").val("");
+   $("#codigo").focus();
+}
+/********************************************************************************************/
+function busca_cliente(){
+    $(document).ready(function(){
+        $("#modal_tabla_clientes").modal({
+            show:true,
+            backdrop: 'static',
+            keyboard: false
+        });
+       $.ajax({
+          beforeSend: function(){
+            $("#lista_clientes").html("Cargando los clientes...");
+          },
+          url: 'lista_clientes.php',
+          type: 'POST',
+          data: null,
+          success: function(x){
+            $("#lista_clientes").html(x);
+            $(document).ready(function() {
+             $('#sample-table-3').DataTable();
+            });
+           },
+          error: function(jqXHR,estado,error){
+            $("#lista_clientes").html('Hubo un error: '+estado+' '+error);
+          }
+       });
+       })
+      }
+/*********************************************************************************************/
+function pone_cliente(elid){
+    var client=elid;
+    var idcl=client.split("|");
+    $("#idcliente_credito").val(idcl[0]);
+    $("#modal_tabla_clientes").modal('hide');
+    $("#tipo_de_venta").html("<button class='btn btn-danger btn-xs' onclick='quita_cliente();'>Quitar</button> Venta al Contado a: "+idcl[1]);
+    $("#btn_cre").attr('disabled', true);
+    //window.alert(client);
+}
+/*********************************************************************************************/
+function quita_cliente(){
+  $("#btn_cre").attr('disabled', false);
+  $("#tipo_de_venta").html("Venta de Contado.");
+  $("#idcliente_credito").val("");
+}
+/***************************************************************************************/
+function prepara_venta(){
+  $(document).ready(function(){
+   $("#modal_prepara_venta").modal({
+        show:true,
+        backdrop: 'static',
+        keyboard: false
+   });
+   $('#modal_prepara_venta').on('shown.bs.modal', function () {
+   $("#paga_con").select();
+   $('#paga_con').focus();
+   });
+   $("#total_de_venta").val("Bs. "+ $("#total_venta").val());
+   })
+}
+/***********************************************************************************/
+function calcula_cambio(){
+   var m1=$("#total_venta").val();
+   var m2=$("#paga_con").val();
+   var change=parseFloat(m2)-parseFloat(m1);
+   $("#el_cambio").val("Bs. "+change.toFixed(2));
+}
+/**************************************************************************************/
+function procesaVenta(){
+	var resp=0;
+	var idCliente 	=	$("#idcliente_credito").val();
+	var subTotal 	=	$('#subTotal').html();
+	var total		=	$('#totales').html();
+	var descuento 	= 	$('#descuento').val();
+	descuento 	= descuento.split(" ");
+	subTotal	=	subTotal.split(" ");
+	total		=	total.split(" ");
+	//alert(total[1]);
+    /*var descuento	= 	$(this).find('td').eq(0).html();
+    var total		= 	$(this).find('td').eq(2).html();*/
+
+	$.ajax({
+    	url: '../../modulo/venta/procesaVenta.php',
+        type: 'POST',
+        async: false,
+        data: {
+        	subTotal: subTotal[1],
+        	idCliente: idCliente,
+        	descuento: descuento[0],
+        	total: total[1],
+        },
+        success: function(x){
+        	//alert(x);
+        	resp = x;
+        }
+    });
+ 	return(resp);
+}
+function procesa_venta(){
+  $(document).ready(function(){
+    /*busca el numero de ticket*/
+    //setTimeout('actualiza_ticket()',1000);
+    $('#modal_prepara_venta').modal('toggle');
+        var credi 	 ='0';
+        var clients  ='0';
+        var descuento 	= 	$('#descuento').html();
+        //$("#btn-procesa").prop('disabled', true);
+        if($('#idcliente_credito').val()!=""){
+            credi 	=	'1';
+            clients =	$("#idcliente_credito").val();
+        }
+        var yapuso = 0;
+
+        var idX = procesaVenta();
+
+        	$('#tabla_articulos > tbody > tr').each(function(){
+                //var descripcion_art	=	$(this).find('td').eq(1).html();
+                var cod 	= 	$(this).find('td').eq(0).html();
+                var can 	= 	$(this).find('td').eq(2).html();
+                var preciou	= 	$(this).find('td').eq(3).html();
+                var monto	=	$(this).find('td').eq(4).html();
+                $.ajax({
+                	beforeSend: function(){
+                	},
+                	url: 'procesa_venta.php',
+                    type: 'POST',
+                    async: false,
+                    data: 'id='+idX+'&idRep='+cod+'&cantidad='+can+'&precio='+preciou+'&monto='+monto+'&cliente='+clients,
+                    success: function(x){
+                        var n = noty({
+	                        text: "Procesando venta...  articulo actual: "+cod,
+	                    	theme: 'relax',
+	                        layout: 'topLeft',
+	                        type: 'success',
+	                        timeout: 2000,
+                        });
+                        $("#tabla_articulos > tbody:last").children().remove();
+                        resumen();
+                        quita_cliente();
+                        $("#descuento").val("0");
+                        $("#des").html("0 %");
+                        $("#codigo").focus();
+                        // if(yapuso==0){
+                        //     llena_ticket_archivo(cod,can,preciou,descripcion_art,yapuso,monto,$("#totales").html(),$("#paga_con").val(),$("#el_cambio").val(),n_tic);
+                        //        yapuso=1;
+                        // }else{
+                        //     llena_ticket_archivo(cod,can,preciou,descripcion_art,yapuso,monto,$("#totales").html(),$("#paga_con").val(),$("#el_cambio").val(),n_tic);
+                        // }
+                    },
+                    error: function(jqXHR,estado,error){
+                        $("#errores").html('Error... '+estado+'  '+error);
+                    }
+                });
+            });
+       	VentanaCentrada('../../pdf/documentos/venta_pdf.php?idX='+idX+'&clients='+clients,'Cotizacion','','1024','768','true');
+    })
+}
+
+function verCompra(idX, clients){
+    VentanaCentrada('../../pdf/documentos/venta_pdf.php?idX='+idX+'&clients='+clients,'Cotizacion','','1024','768','true');
+}
+
+function busca_cotizacion(){
+	var dato = $('#cotizacion').val();
+	$.ajax({
+		url: "busca_cotizacion.php",
+		type: 'post',
+		dataType: 'json',
+		async:false,
+		data:{codigo:dato},
+		beforeSend: function(data){
+			//$("#"+div).html('<div id="load" align="center"><p>Cargando contenido. Por favor, espere ...</p></div>');
+		},
+		success: function(data){
+			$('#tabla tfoot').removeAttr('hidden');
+			//$('#submitVenta').removeAttr('hidden');
+			//alert(data.cant);
+			for (var i = 0; i < data.length; i++) {
+				var monto 	=	data[i].cantidad*data[i].priceSale;
+				$("#tabla_articulos > tbody").append("<tr id='"+data[i].numparte+"'><td class='center'>"+data[i].numparte+"</td><td class='center'>"+data[i].name+"</td><td class='center'>"+data[i].cantidad+"</td><td class='center'>"+data[i].priceSale+"</td><td class='center'>"+monto.toFixed(2)+"</td><td class='center'><button class='btn btn-block btn-danger btn-xs delete'><i class='icon-trash bigger-120'></i> Eliminar</button></td></tr>");
+			}
+			resumen();
+		},
+		error: function(data){
+
+		}
+	});
 }
