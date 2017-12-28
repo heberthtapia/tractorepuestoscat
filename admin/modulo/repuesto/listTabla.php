@@ -16,9 +16,12 @@ $db->Connect();
 
 $op = new cnFunction();
 ?>
-    <script>
+<script>
       $(document).ready(function() {
-        $('#tablaList').DataTable({
+        $('#tablaList').on('draw.dt', function(e, settings, json) {
+          if (typeof drawDT359 == 'function') { drawDT359(); }
+        })
+        .DataTable({
             "language": {
                 "lengthMenu": "Mostrar _MENU_ filas por pagina",
                 "zeroRecords": "No se encontro nada - Lo siento",
@@ -42,37 +45,27 @@ $op = new cnFunction();
             ]
         });
 
-        $('input.repuesto, input:radio').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          //increaseArea: '100%' // optional
-        });
+        function drawDT359() {
+          // when the alert pops up, you will still be on the same page
+          // new results page isn't shown at this moment, will be shown after
+          // so it seems the draw event is being triggered early
+          console.log('drawing table ...');
+          $('input.repuesto, input:radio').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            //increaseArea: '100%' // optional
+          });
 
-        $('input:radio').on('ifChecked', function(event){
-            $('input:radio').validate();
-        });
-        $('input:radio').on('ifUnchecked',function(event){
-           //
-        });
-
-        $('input.repuesto:checkbox').on('ifChecked', function(event){
+          $('input.repuesto:checkbox').on('ifChecked', function(event){
             id = $(this).attr('id');
             statusRep(id, 'Activo');
-        });
-        $('input.repuesto:checkbox').on('ifUnchecked',function(event){
-            id = $(this).attr('id');
-            statusRep(id, 'Inactivo');
-        });
-
-        $.validate({
-          lang: 'es',
-          modules : 'security'
-        });
+          });
+          $('input.repuesto:checkbox').on('ifUnchecked',function(event){
+              id = $(this).attr('id');
+              statusRep(id, 'Inactivo');
+          });
+        }
       });
-
-      $('#obser').restrictLength( $('#max-length-element') );
-
-      $('div#sidebar').find('a#repuesto').addClass('active');
     </script>
 <table id="tablaList" class="table table-bordered table-striped table-condensed" width="100%">
                   <thead>
@@ -86,15 +79,16 @@ $op = new cnFunction();
                       <th>Cantidad</th>
                       <th>Precio Venta</th>
                       <th>Precio Compra</th>
-                      <th>Almacenado Sucursal</th>
+                      <th>Almacenado</th>
                       <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?PHP
-                  $sql   = "SELECT r.id_repuesto, c.id_categoria, c.name AS cat, r.numParte, r.name, r.detail, r.fromRep, a.cantidad, r.priceSale, r.priceBuy, s.id_sucursal, s.nameSuc, r.status ";
-                  $sql  .= "FROM repuesto AS r, almacen AS a, sucursal AS s, categoria AS c WHERE r.id_repuesto = a.id_repuesto ";
-                  $sql  .= "AND a.id_sucursal = s.id_sucursal AND r.id_categoria = c.id_categoria ORDER BY (r.dateReg) DESC ";
+                  $sql = "SELECT r.id_repuesto, c.id_categoria, c.name AS cat, r.numParte, r.stockMin, r.name, r.detail, r.fromRep, ";
+                  $sql.= "SUM(a.cantidad) AS cantidad, r.priceSale, r.priceBuy, r.status, r.statusRep, a.id_almacen ";
+                  $sql.= "FROM repuesto AS r, almacen AS a, categoria AS c WHERE r.id_repuesto = a.id_repuesto ";
+                  $sql.= "AND r.id_categoria = c.id_categoria GROUP BY (r.id_repuesto) ORDER BY (r.dateReg) DESC ";
 
                   $cont = 1;
 
@@ -103,6 +97,15 @@ $op = new cnFunction();
                       die("failed");
 
                   while( $row = $srtQuery->FetchRow()){
+
+                    $sqlProv = "SELECT id_proveedor FROM suministra WHERE id_repuesto = '".$row['id_repuesto']."' ";
+                    $srtProv = $db->Execute($sqlProv);
+                    $reg = $srtProv->FetchRow();
+
+                    if($row['statusRep'] == 1)
+                      $alm = '<span class="label label-success">Real</span>';
+                    else
+                      $alm = '<span class="label label-danger">Ficticio</span>';
 
                       ?>
                       <tr id="tb<?=$row[0]?>">
@@ -115,7 +118,7 @@ $op = new cnFunction();
                           <td align="center"><?=$row['cantidad'];?></td>
                           <td align="center"><?=$row['priceSale'];?></td>
                           <td align="center"><?=$row['priceBuy'];?></td>
-                          <td align="center"><?=$row['nameSuc'];?></td>
+                          <td align="center"><?=$alm;?></td>
                           <td width="14%">
                               <div class="btn-group" style="width: 171px">
                                   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#dataUpdate"
@@ -123,19 +126,57 @@ $op = new cnFunction();
                                       data-numParte   =   "<?=$row['numParte']?>"
                                       data-name       =   "<?=$row['name']?>"
                                       data-idCat      =   "<?=$row['id_categoria']?>"
+                                      data-proveedor  =   "<?=$reg['id_proveedor']?>"
                                       data-fromRep    =   "<?=$row['fromRep']?>"
                                       data-cantidad   =   "<?=$row['cantidad']?>"
+                                      data-cantidadMin=   "<?=$row['stockMin']?>"
                                       data-priceSale  =   "<?=$row['priceSale']?>"
                                       data-priceBuy   =   "<?=$row['priceBuy']?>"
                                       data-detail     =   "<?=$row['detail']?>"
-                                      data-idSuc      =   "<?=$row['id_sucursal']?>"
-                                      data-nameSuc    =   "<?=$row['nameSuc']?>">
+                                      <?php
+                                      $sql = "SELECT s.id_sucursal, s.cantidad FROM repuesto AS r, almacen AS a, almacenSuc AS s WHERE r.id_repuesto = a.id_repuesto ";
+                                      $sql.= "AND a.id_almacen = s.id_almacen AND r.id_repuesto = '".$row['id_repuesto']."' ";
+                                      $querySql = $db->Execute($sql);
+                                      $cantSuc = 0;
+                                      while (  $file = $querySql->FetchRow() ) {
+                                        $cantSuc++;
+                                      ?>
+                                      data-asingSuc<?=$file['id_sucursal']?>   =   "<?=$file['cantidad']?>"
+                                      <?php
+                                      }
+                                      ?>
+                                      data-cantSuc    =   "<?=$cantSuc;?>"
+                                      data-idalmacen  =   "<?=$row['id_almacen'];?>"
+                                      data-statusRep  =   "<?=$row['statusRep'];?>" >
                                       <i class='glyphicon glyphicon-edit'></i> Modificar
                                   </button>
 
                                   <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#dataDelete" data-id="<?=$row['id_repuesto']?>"  >
                                       <i class='glyphicon glyphicon-trash'></i> Eliminar
                                   </button>
+                              </div>
+                              <div class="btn-group" style="width: 171px; margin-top: 5px;">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#dataStock"
+                                        data-idResp     =   "<?=$row['id_repuesto']?>"
+                                          data-numParte   =   "<?=$row['numParte']?>"
+                                          data-name       =   "<?=$row['name']?>"
+                                          data-cantidad   =   "<?=$row['cantidad']?>"
+                                          <?php
+                                          $sql = "SELECT s.id_sucursal, s.cantidad FROM repuesto AS r, almacen AS a, almacenSuc AS s WHERE r.id_repuesto = a.id_repuesto ";
+                                          $sql.= "AND a.id_almacen = s.id_almacen AND r.id_repuesto = '".$row['id_repuesto']."' ";
+                                          $querySql = $db->Execute($sql);
+                                          $cantSuc = 0;
+                                          while (  $file = $querySql->FetchRow() ) {
+                                            $cantSuc++;
+                                          ?>
+                                          data-asingSuc<?=$file['id_sucursal']?>   =   "<?=$file['cantidad']?>"
+                                          <?php
+                                          }
+                                          ?>
+                                          data-cantSuc    =   "<?=$cantSuc;?>"
+                                          data-idalmacen  =   "<?=$row['id_almacen'];?>" >
+                                        <i class='glyphicon glyphicon-trash'></i> Agregar STOCK
+                                    </button>
                               </div>
                               <div style="margin-top: 5px">
                                   <div class="checkbox" id="status<?=$row['id_repuesto']?>">

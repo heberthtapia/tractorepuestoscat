@@ -21,8 +21,8 @@
 			}else{
 				$('#alert').css('display','block').fadeIn(6000,function () {
 					$('#alert').fadeOut(4000);
-					$('.btn').delay(7000).val('Ingresar');
-					$('.btn').delay(7000).removeAttr('disabled');
+					$('.btn').delay(4000).val('Ingresar');
+					$('.btn').delay(4000).removeAttr('disabled');
 
 					$('#login').click();
 					$('#password').val('');
@@ -126,7 +126,7 @@ function displaySection(p, sec, id){
 			if(data.tabla === 'empleado'){
 				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax').fadeOut(2000,function () {
-						$('#dataRegister').modal('hide').delay(7000);
+						$('#dataRegister').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -135,7 +135,7 @@ function displaySection(p, sec, id){
 				//fnClickAddRowU(data,true);
 				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax').fadeOut(2000,function () {
-						$('#dataRegister').modal('hide').delay(7000);
+						$('#dataRegister').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -144,7 +144,7 @@ function displaySection(p, sec, id){
 				//fnClickAddRowU(data,true);
 				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax').fadeOut(2000,function () {
-						$('#dataRegister').modal('hide').delay(7000);
+						$('#dataRegister').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -153,7 +153,7 @@ function displaySection(p, sec, id){
 				//fnClickAddRowU(data,true);
 				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax').fadeOut(2000,function () {
-						$('#dataRegister').modal('hide').delay(7000);
+						$('#dataRegister').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -162,7 +162,7 @@ function displaySection(p, sec, id){
 				//fnClickAddRowU(data,true);
 				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax').fadeOut(2000,function () {
-						$('#dataRegister').modal('hide').delay(7000);
+						$('#dataRegister').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -203,7 +203,7 @@ function displaySection(p, sec, id){
 			if(data.tabla === 'produccion'){
 				$('#datos_ajax').html('<div class="alert alert-success" role="alert"><strong>Guardado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax').fadeOut(2000,function () {
-						$('#dataRegister').modal('hide').delay(7000);
+						$('#dataRegister').modal('hide').delay(4000);
 						despliega('modulo/produccion/listTabla.php','listTabla');
 					});
 				});
@@ -211,7 +211,7 @@ function displaySection(p, sec, id){
 			if(data.tabla === 'inventarioPre'){
 				$('#datos_ajax_import').html('<div class="alert alert-success" role="alert"><strong>Asignado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_import').fadeOut(2000,function () {
-						$('#dataImport').modal('hide').delay(7000);
+						$('#dataImport').modal('hide').delay(4000);
 						window.open('modulo/produccion/pdfOrdenAsig.php?res='+data.idP, '_blank');
 						despliega('modulo/produccion/listTabla.php','listTabla');
 					});
@@ -238,7 +238,7 @@ function updateForm(idForm, p){
 			if(data.tabla === 'empleado'){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
-						$('#dataUpdate').modal('hide').delay(7000);
+						$('#dataUpdate').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -246,7 +246,8 @@ function updateForm(idForm, p){
 			if(data.tabla === 'repuesto'){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
-						$('#dataUpdate').modal('hide').delay(7000);
+						$('#dataUpdate').modal('hide').delay(4000);
+						$('#dataStock').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -254,7 +255,7 @@ function updateForm(idForm, p){
 			if(data.tabla === 'sucursal'){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
-						$('#dataUpdate').modal('hide').delay(7000);
+						$('#dataUpdate').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -262,7 +263,7 @@ function updateForm(idForm, p){
 			if(data.tabla === 'cliente'){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
-						$('#dataUpdate').modal('hide').delay(7000);
+						$('#dataUpdate').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -270,7 +271,7 @@ function updateForm(idForm, p){
 			if(data.tabla === 'categoria'){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
-						$('#dataUpdate').modal('hide').delay(7000);
+						$('#dataUpdate').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -278,7 +279,7 @@ function updateForm(idForm, p){
 			if(data.tabla === 'proveedor'){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
-						$('#dataUpdate').modal('hide').delay(7000);
+						$('#dataUpdate').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -286,7 +287,7 @@ function updateForm(idForm, p){
 			if(data.tabla === 'produccion'){
 				$('#datos_ajax_update').html('<div class="alert alert-success" role="alert"><strong>Modificado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_update').fadeOut(2000,function () {
-						$('#dataUpdate').modal('hide').delay(7000);
+						$('#dataUpdate').modal('hide').delay(4000);
 						despliega('modulo/produccion/listTabla.php','listTabla');
 					});
 				});
@@ -310,7 +311,7 @@ function fDelete(idForm, p){
 			if(data.tabla === 'repuesto'){
 				$('#datos_ajax_delete').html('<div class="alert alert-success" role="alert"><strong>Eliminado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_delete').fadeOut(2000,function () {
-						$('#dataDelete').modal('hide').delay(7000);
+						$('#dataDelete').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -318,7 +319,7 @@ function fDelete(idForm, p){
 			if(data.tabla === 'empleado'){
 				$('#datos_ajax_delete').html('<div class="alert alert-success" role="alert"><strong>Eliminado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_delete').fadeOut(2000,function () {
-						$('#dataDelete').modal('hide').delay(7000);
+						$('#dataDelete').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -326,7 +327,7 @@ function fDelete(idForm, p){
 			if(data.tabla === 'sucursal'){
 				$('#datos_ajax_delete').html('<div class="alert alert-success" role="alert"><strong>Eliminado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_delete').fadeOut(2000,function () {
-						$('#dataDelete').modal('hide').delay(7000);
+						$('#dataDelete').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -334,7 +335,7 @@ function fDelete(idForm, p){
 			if(data.tabla === 'categoria'){
 				$('#datos_ajax_delete').html('<div class="alert alert-success" role="alert"><strong>Eliminado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_delete').fadeOut(2000,function () {
-						$('#dataDelete').modal('hide').delay(7000);
+						$('#dataDelete').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -342,7 +343,7 @@ function fDelete(idForm, p){
 			if(data.tabla === 'cliente'){
 				$('#datos_ajax_delete').html('<div class="alert alert-success" role="alert"><strong>Eliminado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_delete').fadeOut(2000,function () {
-						$('#dataDelete').modal('hide').delay(7000);
+						$('#dataDelete').modal('hide').delay(4000);
 						displaySection('listTabla.php','unseen');
 					});
 				});
@@ -350,7 +351,7 @@ function fDelete(idForm, p){
 			if(data.tabla === 'produccion'){
 				$('#datos_ajax_delete').html('<div class="alert alert-success" role="alert"><strong>Eliminado Correctamente!!!</strong></div><br>').fadeIn(4000,function () {
 					$('#datos_ajax_delete').fadeOut(2000,function () {
-						$('#dataDelete').modal('hide').delay(7000);
+						$('#dataDelete').modal('hide').delay(4000);
 						despliega('modulo/produccion/listTabla.php','listTabla');
 					});
 				});
@@ -1188,6 +1189,22 @@ function add_art(art){
             	}else{
 					alert('Producto sin Stock...!!!');
 				}
+        	}else{
+        		/**
+        		 * cuando el producto ya esta agregado y solo cambian las cantidades
+        		 */
+        		$("#codigo").val("");
+		            $("#cantidad").val("");
+		            $("#preciou").val("");
+		            $(".widget-user-desc").text("");
+		            $(".preciol").text("0.00");
+		            $(".exis").text("0.00");
+		            $("#cantidad").attr("disabled", true);
+		            $("#preciou").attr("disabled", true);
+		            $("#codigo").focus();
+		            /*cancela_operacion();*/
+		            $("#imagen").attr("src",'../../assets/img/sin_foto.png');
+		            resumen();
         	}
 
         }else{
@@ -1203,11 +1220,11 @@ function add_art(art){
 }
 /******************************************************************************************/
 $(function(){
-         // Evento que selecciona la fila y la elimina
-	      $(document).on("click",".delete",function(){
-	     	var parent = $(this).parents().parents().get(0);
-		  $(parent).remove();
-           resumen();
+        // Evento que selecciona la fila y la elimina
+	    $('#tabla_articulos').on("click",".delete",function(){
+	    	var parent = $(this).parents().parents().get(0);
+		  	$(parent).remove();
+           	resumen();
        	});
        });
 /****************************************************************************************/

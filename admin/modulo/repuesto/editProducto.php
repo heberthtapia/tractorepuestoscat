@@ -32,6 +32,7 @@ $queryProv = $db->Execute($sql);
 						<input id="date" name="date" type="hidden" value="<?=$fecha;?> <?=$hora;?>" />
 						<input id="tabla" name="tabla" type="hidden" value="repuesto">
 						<input id="idResp" name="idResp" type="hidden">
+						<input type="hidden" id="idAlmacen" name="idAlmacen" value="">
 					</div>
 					<div class="form-group">
 						<label for="categoria" class="control-label col-md-3">Categoria:</label>
@@ -70,6 +71,7 @@ $queryProv = $db->Execute($sql);
 									}
 								?>
 							</select>
+							<input type="hidden" id="provee" name="provee" value="">
 						</div>
 					</div>
 					<div class="form-group">
@@ -87,7 +89,7 @@ $queryProv = $db->Execute($sql);
 					<div class="form-group">
 						<label for="cantidad" class="control-label col-md-3">Cantidad en Stock:</label>
 						<div class="col-md-4 col-xs-6">
-							<input type="text" class="form-control" id="cantidad" name="cantidad" placeholder="Cantidad en Stock" data-validation="required number" >
+							<input type="text" class="form-control" id="cantidad" name="cantidad" onblur="javascript:cant_StockU()" placeholder="Cantidad en Stock" data-validation="required number" >
 						</div>
 					</div>
 					<div class="form-group">
@@ -129,23 +131,42 @@ $queryProv = $db->Execute($sql);
 					<div class="form-group">
 						<label for="detail" class="control-label col-md-3">Detalle:</label>
 						<div class="col-md-9">
-							<textarea class="form-control" id="detail" name="detail" data-validation="required" placeholder="Detalle" rows="3"></textarea>
+							<textarea class="form-control" id="detailU" name="detailU" data-validation="required" placeholder="Detalle" rows="3"></textarea>
 						</div>
 					</div>
+					<hr>
 					<div class="form-group">
-						<label for="detail" class="control-label col-md-3">Sucursal:</label>
-						<div class="col-md-9">
+						<label for="cantStock" class="control-label col-md-3">Cantidad para Asignar:</label>
+						<div class="col-md-4 col-xs-6">
+							<input type="text" class="form-control" id="cantStock" onblur="javascript:cant_StockU()" name="cantStock" placeholder="Cantidad para Asignar" data-validation="number" data-validation-allowing="range[0;0]" data-validation-error-msg="Se debe de asignar todo el STOCK" value="0">
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label for="detail" class="control-label col-md-3 col-xs-3">Asignar a la Sucursal:</label>
+						<div class="col-md-9 col-xs-9">
 						<?php
-							while ($row = $strQuery->FetchRow()) {
+				          $strEmp = "SELECT COUNT(*) FROM sucursal ";
+				          $strNum = $db->Execute($strEmp);
+				          $NumRow = $strNum->FetchRow();
+				            $c=0;
+				           	while ($row = $strQuery->FetchRow()) {
+				            $c++;
 						?>
-							<label class="radio-inline">
-							 	<input type="radio" name="radioRep" id="suc<?=$row['id_sucursal'];?>" data-validation="required" data-validation-error-msg="Requerido" errorMessagePosition="inline" value="<?=$row['id_sucursal'];?>"> <?=$row['nameSuc'];?>
-							</label>
+							<div class="form-group">
+								<div class="col-md-6 col-xs-6">
+									<p><?=$row['nameSuc']?></p>
+								</div>
+								<div class="col-md-6 col-xs-6">
+									<input type="text" class="form-control" id="pre<?=$c;?>" name="<?=$row['id_sucursal'];?>" data-validation="required number" onblur="actuCantU(<?=$NumRow[0];?>)" value="0" >
+								</div>
+							</div>
 						<?php
 							}
 						?>
 						</div>
 					</div>
+					<hr>
 					<div class="row">
 						<div class="col-md-12">
 
@@ -211,12 +232,53 @@ $queryProv = $db->Execute($sql);
 </form>
 
 <script>
+	function cant_StockU() {
+        cantidad = $('#formUpdate #cantidad').val();
+		$('#formUpdate #cantStock').val(cantidad);
+		$('#formUpdate #cantidad').attr('disabled', 'disabled');
+		$('#formUpdate #cantStock').attr('disabled', 'disabled');
+	}
+	function actuCantU(num){
+      pre = 'pre';
+      total = 0;
+      cantPro = $('#formUpdate input#cantidad').val();
+      for(i=1; i<=num; i++){
+          f = pre+i;
+          cantPre = $('#formUpdate input#'+f).val();
+          total = parseInt(total) + parseInt(cantPre);
+      }
+      resto = parseInt(cantPro) - parseInt(total);
+      $('#formUpdate input#cantStock').val(resto);
+    }
+	var sw = 0;
+	function actuOptional(num, sw){
+	      pre = 'pre';
+	      total = 0;
+	      cantPro = $('#formUpdate input#cantidad').val();
+	      for(i=1; i<=num; i++){
+	          f = pre+i;
+	          cantPre = $('#formUpdate input#'+f).val();
+	          total = parseInt(total) + parseInt(cantPre);
+	          	if(sw != 1){
+	          		$('#formUpdate input#'+f).attr('disabled', 'disabled');
+	      		}else
+	      			$('#formUpdate input#'+f).removeAttr('disabled');
+	      }
+	      resto = parseInt(cantPro) - parseInt(total);
+	      $('#formUpdate input#cantStock').val(resto);
+	      if(resto != 0 && sw == 0){
+	      	sw = 1;
+	      	$('#formUpdate #cantStock').removeAttr('disabled');
+	      	actuOptional(num, sw);
+	      }
+    }
 
 	$('#dataUpdate').on('hidden.bs.modal', function (e) {
-         // do something...
         $('#formUpdate').get(0).reset();
         html = '';
         $('#loadImages tbody').html(html);
+        instancia = CKEDITOR.instances['detailU'];
+    	editor.destroy();
     });
 
 	$('#dataUpdate').on('show.bs.modal', function (event) {
@@ -233,45 +295,56 @@ $queryProv = $db->Execute($sql);
 		var priceSale 	= button.data('pricesale'); // Extraer la información de atributos de datos
 		var priceBuy	= button.data('pricebuy'); // Extraer la información de atributos de datos
 		var detail		= button.data('detail'); // Extraer la información de atributos de datos
-		var idSuc		= button.data('idsuc'); // Extraer la información de atributos de datos
-		var nameSuc		= button.data('namesuc'); // Extraer la información de atributos de datos
+		var cantSuc		= button.data('cantsuc'); // Extraer la información de atributos de datos
+		var idAlmacen	= button.data('idalmacen'); // Extraer la información de atributos de datos
+		var asingSuc;
+		for (var i = 1; i <= cantSuc; i++) {
+			asingSuc = 'asingsuc'+i;
+			asingSuc = button.data('asingsuc'+i);
+		}
 		var statusRep	= button.data('statusrep'); // Extraer la información de atributos de datos
 
 
 		var modal = $(this);
-		modal.find('.modal-title').text('Modificar Repuesto: '+numParte);
+		modal.find('.modal-title').text('Modificar Repuesto ==> '+numParte);
 		modal.find('.modal-body #idResp').val(idResp);
 		modal.find('.modal-body #numParte').val(numParte);
 		modal.find('.modal-body #name').val(name);
 		modal.find('.modal-body #categoria').val(idCat);
 		modal.find('.modal-body #proveedor').val(proveedor);
+		modal.find('.modal-body #provee').val(proveedor);
 		modal.find('.modal-body #fromRep').val(fromRep);
 		modal.find('.modal-body #cantidad').val(cantidad);
 		modal.find('.modal-body #cantidadMin').val(cantidadMin);
 		modal.find('.modal-body #priceSale').val(priceSale);
 		modal.find('.modal-body #priceBuy').val(priceBuy);
-		modal.find('.modal-body #detail').val(detail);
-		//modal.find('.modal-body #').val(statusRep);
-		//$('.alert').hide();//Oculto alert
+		modal.find('.modal-body #idAlmacen').val(idAlmacen);
+		modal.find('.modal-body #detailU').val(detail);
+		for (var i = 1; i <= cantSuc; i++) {
+			asingSuc = 'asingsuc'+i;
+			asingSuc = button.data('asingsuc'+i);
+			modal.find('.modal-body #pre'+i).val(asingSuc);
+		}
+
+		editor = CKEDITOR.replace( 'detailU' );
 
 		id_repuesto = idResp;
+		cant_StockU();
+		actuOptional(<?=$NumRow[0];?>, 0);
 
 		$('input#statusRep, input:radio').iCheck({
           checkboxClass: 'icheckbox_square-blue',
           radioClass: 'iradio_square-blue',
           //increaseArea: '100%' // optional
         });
-		idSuc = 'suc'+idSuc;
 
-        $('#formUpdate').find('#'+idSuc).iCheck('check');
-        alert(statusRep);
 		if(statusRep == 1){
 			$('#formUpdate').find('#statusRep').iCheck('check');
 		}else{
 			$('#formUpdate').find('#statusRep').iCheck('uncheck');
 		}
 
-	    //'use strict';
+	    'use strict';
 
         // Initialize the jQuery File Upload widget:
         $('#formUpdate').fileupload({

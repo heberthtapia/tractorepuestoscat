@@ -528,8 +528,6 @@
         });
       });
 
-      $('#obser').restrictLength( $('#max-length-element') );
-
       $('div#sidebarChat').find('a#venta').addClass('active');
       $('div#sidebarChat').find('li#puntoVenta').addClass('active');
     </script>
@@ -699,6 +697,9 @@
         //$('div.iradio_square-blue').removeClass('checked');
         //despliega('modulo/almacen/producto.php','contenido');
     });
+
+    $('div#sidebar').find('a#venta').addClass('active');
+    $('div#sidebar').find('li#puntoVenta').addClass('active');
 </script>
 
 <input type='hidden' id='idcliente_credito' value="">

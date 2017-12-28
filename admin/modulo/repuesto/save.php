@@ -31,15 +31,27 @@
 
 	$lastId = $db->insert_Id();
 
-	$strQuery = "INSERT INTO almacen ( id_repuesto, id_sucursal, cantidad, dateReg, status ) ";
-	$strQuery.= "VALUES ('".$lastId."', '".$data->radioRep."', '".$data->cantidad."', '".$data->date."', 'Activo' )";
+	$strQuery = "INSERT INTO almacen ( id_repuesto, cantidad, dateReg, status ) ";
+	$strQuery.= "VALUES ('".$lastId."', '".$data->cantidad."', '".$data->date."', 'Activo' )";
 
 	$sql = $db->Execute($strQuery);
+
+	$lastIdAl = $db->insert_Id();
 
 	$strQuery = "INSERT INTO suministra ( id_repuesto, id_proveedor, cantidad, dateReg ) ";
 	$strQuery.= "VALUES ('".$lastId."', '".$data->proveedor."', '".$data->cantidad."', '".$data->date."' )";
 
 	$sql = $db->Execute($strQuery);
+
+	$srtSql = "SELECT * FROM sucursal ";
+	$srtSqlId = $db->Execute($srtSql);
+
+	while ($srtId = $srtSqlId->FetchRow()) {
+		$strQuery = "INSERT INTO almacenSuc ( id_almacen, id_sucursal, cantidad, dateReg, status ) ";
+		$strQuery .= "VALUES ('".$lastIdAl."', '".$srtId['id_sucursal']."', '".$data->$srtId['id_sucursal']."', ";
+		$strQuery .= "'".$data->date."', 'Activo' )";
+		$sql = $db->Execute($strQuery);
+	}
 
 	/*********************ACTUALIZA FOTO Y ENVIANDO DATOS POR EMAIL*******************************/
 

@@ -24,22 +24,26 @@
 
 	$strQuery = "UPDATE repuesto SET dateReg = '".$fecha." ".$hora."', ";
 	$strQuery.= "numParte = '".$data->numParte."', name = '".$data->name."', fromRep = '".$data->fromRep."', ";
-	$strQuery.= "priceSale = '".$data->priceSale."', priceBuy = '".$data->priceBuy."', stockMin='".$data->cantidadMin."', statusRep='".$statusRep."', detail='".$data->detail."', status = 'Activo' ";
+	$strQuery.= "priceSale = '".$data->priceSale."', priceBuy = '".$data->priceBuy."', stockMin='".$data->cantidadMin."', statusRep='".$statusRep."', detail='".$data->detailU."', status = 'Activo' ";
 	$strQuery.= "WHERE id_repuesto = '".$data->idResp."' ";
 
 	$sql = $db->Execute($strQuery);
 
-	/*$strQuery = "UPDATE almacen SET dateReg = '".$fecha." ".$hora."', ";
-	$strQuery.= "id_sucursal = '".$data->radioRep."', cantidad = '".$data->cantidad."', status = 'Activo' ";
-	$strQuery.= "WHERE id_repuesto = '".$data->idResp."' ";
-
-	$sql = $db->Execute($strQuery);
-
-	/*$strQuery = "UPDATE suministra SET dateReg = '".$fecha." ".$hora."', ";
+	$strQuery = "UPDATE suministra SET dateReg = '".$fecha." ".$hora."', ";
 	$strQuery.= "id_repuesto = '".$data->idResp."', id_proveedor = '".$data->proveedor."', cantidad = '".$data->cantidad."' ";
-	$strQuery.= "WHERE id_repuesto = '".$data->idResp."' AND id_proveedor =  ";
+	$strQuery.= "WHERE id_repuesto = '".$data->idResp."' AND id_proveedor =  $data->provee";
 
-	$sql = $db->Execute($strQuery);*/
+	$sql = $db->Execute($strQuery);
+
+	$srtSql = "SELECT * FROM sucursal ";
+	$srtSqlId = $db->Execute($srtSql);
+
+	while ($srtId = $srtSqlId->FetchRow()) {
+		$strQuery = "INSERT INTO almacenSuc ( id_almacen, id_sucursal, cantidad, dateReg, status ) ";
+		$strQuery .= "VALUES ('".$data->idAlmacen."', '".$srtId['id_sucursal']."', '".$data->$srtId['id_sucursal']."', ";
+		$strQuery .= "'".$data->date."', 'Activo' )";
+		$sql = $db->Execute($strQuery);
+	}
 
 	/*********************ACTUALIZA FOTO Y ENVIANDO DATOS POR EMAIL*******************************/
 

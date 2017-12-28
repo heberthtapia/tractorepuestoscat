@@ -4,6 +4,12 @@ table { vertical-align: top; }
 tr    { vertical-align: top; }
 td    { vertical-align: top; }
 table.page_footer {width: 100%; border: none; background-color: white; padding: 2mm;border-collapse:collapse; border: none;}
+.odd {
+    background: #E7E7E7;
+    padding:10mm;
+}
+.even{
+    padding:4mm;
 }
 -->
 </style>
@@ -32,7 +38,7 @@ table.page_footer {width: 100%; border: none; background-color: white; padding: 
 
             </td>
 			<td style="width: 50%;text-align:right">
-			VENTA Nº <? echo $op->ceros($idX,4);?>
+			PROFORMA Nº <? echo $op->ceros($idX,4);?>
 			</td>
 
         </tr>
@@ -76,16 +82,17 @@ table.page_footer {width: 100%; border: none; background-color: white; padding: 
         </tr>
     </table>
     <br>
-    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;padding:1mm;">
+    <table cellspacing="0" style="width: 100%; border: solid 1px black; background: #E7E7E7; text-align: center; font-size: 10pt;padding:2mm;">
         <tr>
-            <th style="width: 10%"># DE PARTE</th>
+            <th style="width: 10%">#</th>
             <th style="width: 30%">NOMBRE</th>
             <th style="width: 30%">CANTIDAD</th>
             <th style="width: 15%">PRECIO UNIT.</th>
             <th style="width: 15%">MONTO TOTAL</th>
-
         </tr>
     </table>
+
+    <table cellspacing="0" style="width: 100%; border: solid 1px black;  text-align: center; font-size: 11pt;">
 <?php
     $sumador_total = 0;
 
@@ -93,7 +100,11 @@ table.page_footer {width: 100%; border: none; background-color: white; padding: 
 
     $sql    = $db->Execute($sqlQuery);
 
+    $C = 0;
+
     while ($row = $sql->FetchRow()){
+
+        $c++;
 
         $numRep = $row['numParte'];
         $name   = $row['name'];
@@ -107,47 +118,28 @@ table.page_footer {width: 100%; border: none; background-color: white; padding: 
 
         $monto  = number_format($monto,2);
 
-        $condiciones = "Al Contado"
+        $condiciones = "Al Contado";
 
-
-    /*$id_tmp = $row["id_tmp"];
-	$id_repuesto = $row["id_repuesto"];
-	$numParte = $row['numParte'];
-	$cantidad = 1;//$row['cantidad_tmp'];
-	$nombre_producto = $row['nameRepuesto'];
-	$categoria = $row['cat'];*/
-
-	/*if (!empty($id_marca_producto))
-	{
-	$sql_marca=mysqli_query($con,"select nombre_marca from marcas_demo where id_marca='$id_marca_producto'");
-	$rw_marca=mysqli_fetch_array($sql_marca);
-	$nombre_marca=$rw_marca['nombre_marca'];
-	$marca_producto=" ".strtoupper($nombre_marca);
-	}
-	else {$marca_producto='';}*/
-
-	/*$precio_venta=$row['priceSale'];
-	$precio_venta_f=number_format($precio_venta,2);//Formateo variables
-	$precio_venta_r=str_replace(",","",$precio_venta_f);//Reemplazo las comas
-	$precio_total=$precio_venta_r*$cantidad;
-	$precio_total_f=number_format($precio_total,2);//Precio total formateado
-	$precio_total_r=str_replace(",","",$precio_total_f);//Reemplazo las comas
-	$sumador_total+=$precio_total_r;//Sumador*/
+    if( ($c % 2) == 0 )
+        $fila = 'odd';
+    else
+        $fila = 'even';
 	?>
-	<table cellspacing="0" style="width: 100%; border: solid 1px black;  text-align: center; font-size: 11pt;padding:1mm;">
-        <tr>
-            <td style="width: 10%; text-align: center"><?php echo $numRep; ?></td>
-            <td style="width: 30%; text-align: center"><? echo $name;?></td>
-            <td style="width: 30%; text-align: center"><? echo $cant;?></td>
-            <td style="width: 15%; text-align: right"><? echo $price;?></td>
-            <td style="width: 15%; text-align: right"><? echo $monto;?></td>
 
+        <tr class="<?=$fila;?>">
+            <td style="width: 10%; text-align: center; padding:1.5mm;"><?=$c;?></td>
+            <td style="width: 30%; text-align: center; padding:1.5mm;"><?=$name;?></td>
+            <td style="width: 30%; text-align: center; padding:1.5mm;"><?=$cant;?></td>
+            <td style="width: 15%; text-align: right; padding:1.5mm;"><?=$price;?></td>
+            <td style="width: 15%; text-align: right; padding:1.5mm;"><?=$monto;?></td>
         </tr>
-    </table>
+
 	<?php
 	}
+
     $total = ($subTotal - $subTotal*($descuento/100));
     ?>
+    </table>
 <br>
     <table cellspacing="0" style="width: 100%; border-top: dashed 1px ececec; background: #E7E7E7; text-align: center; font-size: 11pt;padding:1mm;">
         <tr>

@@ -15,7 +15,10 @@
 
 	$codigo = $_POST['codigo'];
 
-	$cadena = "SELECT r.priceSale, r.name AS namePro, a.cantidad, f.name FROM repuesto AS r, almacen AS a, foto AS f WHERE r.numParte = '$codigo' AND r.id_repuesto = a.id_repuesto AND r.id_repuesto = f.id_repuesto GROUP BY r.id_repuesto";
+	$cadena = "SELECT r.priceSale, r.name AS namePro, s.cantidad, f.name ";
+	$cadena.= "FROM repuesto AS r, almacen AS a, almacenSuc AS s, foto AS f ";
+	$cadena.= "WHERE r.numParte = '".$codigo."' AND r.id_repuesto = a.id_repuesto AND r.id_repuesto = f.id_repuesto ";
+ 	$cadena.= "AND a.id_almacen = s.id_almacen AND s.id_sucursal = '".$_SESSION['idSuc']."' GROUP BY r.id_repuesto ";
 
 	$exe = $db->Execute($cadena);
 
